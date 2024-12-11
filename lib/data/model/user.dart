@@ -1,11 +1,26 @@
 class User {
+  String id;
+  String name;
   String address;
-  String username;
-  String userId;
 
   User({
+    required this.id,
+    required this.name,
     required this.address,
-    required this.username,
-    required this.userId,
   });
+
+  User.fromJson(Map<String, dynamic> map)
+      : this(
+          id: map['id'],
+          name: map['name'],
+          address: map['address'],
+        );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'address': address,
+    };
+  }
 }
