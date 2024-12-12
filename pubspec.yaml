@@ -37,7 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_riverpod: ^2.6.1
   geolocator: ^13.0.2
-  flutter_dotenv: ^5.1.0
+  flutter_dotenv: ^5.2.1
+  firebase_core: ^3.8.1
+  cloud_firestore: ^5.5.1
 
 dev_dependencies:
   flutter_test:
@@ -79,10 +81,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Cafe24Ssurround-v2.0
+      fonts:
+        - asset: assets/fonts/Cafe24Ssurround-v2.0.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "631421094300",
+    "project_id": "flutter-pet4ever-app",
+    "storage_bucket": "flutter-pet4ever-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631421094300:android:e890657e8a07d05a3ae059",
+        "android_client_info": {
+          "package_name": "com.example.pet_4_ever"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqb463E57yK-RR4vVS-vSZfsVwQOTwVk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
