@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/id_text_form_field.dart';
-import 'package:pet_4_ever/ui/pages/login_join/widgets/logo_text.dart';
+import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
 
 class LoginPage extends StatefulWidget {
