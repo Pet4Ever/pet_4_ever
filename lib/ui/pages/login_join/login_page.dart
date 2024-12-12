@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pet_4_ever/ui/pages/friends/friends_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/id_text_form_field.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/logo_text.dart';
@@ -42,8 +41,8 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 135),
               Image.asset(
                 'assets/images/Rogo.png',
-                width: 235,
-                height: 244,
+                width: 244,
+                height: 235,
               ),
               LogoText(),
               SizedBox(height: 25),
