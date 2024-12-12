@@ -1,15 +1,12 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/core/validator_util.dart';
 
 class PwTextFormField extends StatelessWidget {
-  PwTextFormField({
+  const PwTextFormField({
+    super.key,
     required this.controller,
   });
-  TextEditingController controller;
-
-
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,5 +16,4 @@ class PwTextFormField extends StatelessWidget {
       obscureText: true,
     );
   }
-
 }

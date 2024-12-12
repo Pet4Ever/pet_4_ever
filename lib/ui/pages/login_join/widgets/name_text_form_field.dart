@@ -1,15 +1,12 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/core/validator_util.dart';
 
 class NameTextFormField extends StatelessWidget {
-  NameTextFormField({
+  const NameTextFormField({
+    super.key,
     required this.controller,
   });
-  TextEditingController controller;
-
-
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -18,5 +15,4 @@ class NameTextFormField extends StatelessWidget {
       validator: ValidatorUtil.validatorName,
     );
   }
-
 }
