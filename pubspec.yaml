@@ -81,7 +81,7 @@ flutter:
   fonts:
     - family: Cafe24Ssurround-v2.0
       fonts:
-        - asset: Cafe24Ssurround-v2.0.ttf
+        - asset: assets/fonts/Cafe24Ssurround-v2.0.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
