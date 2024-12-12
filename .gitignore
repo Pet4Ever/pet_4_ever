@@ -47,8 +47,8 @@ app.*.map.json
 /android/app/release
 
 # Firebase 설정 파일
-ios/Runner/GoogleService-Info.plist
-android/app/google-services.json
+GoogleService-Info.plist
+google-services.json
 
 # Flutter 빌드 디렉토리
 /build/
