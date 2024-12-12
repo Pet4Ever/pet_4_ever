@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCqb463E57yK-RR4vVS-vSZfsVwQOTwVk4',
-    appId: '1:631421094300:android:e587528912e590123ae059',
+    appId: '1:631421094300:android:e890657e8a07d05a3ae059',
     messagingSenderId: '631421094300',
     projectId: 'flutter-pet4ever-app',
     storageBucket: 'flutter-pet4ever-app.firebasestorage.app',
