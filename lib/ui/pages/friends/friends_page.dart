@@ -20,16 +20,22 @@ class FriendsPage extends StatelessWidget {
             return Container(
                 width: 115,
                 height: 145,
+                decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
                     // 강쥐 사진
-                    Container(
-                      width: 115,
-                      height: 92,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage('https://picsum.photos/200'),
-                            fit: BoxFit.cover),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        width: 115,
+                        height: 92,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage('https://picsum.photos/200'),
+                              fit: BoxFit.cover),
+                        ),
                       ),
                     ),
                     // 텍스트
@@ -40,7 +46,8 @@ class FriendsPage extends StatelessWidget {
                           //crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('멍멍이'),
+                            Text('멍멍이',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                             Text('산책하는 시바'),
                           ],
                         ),
