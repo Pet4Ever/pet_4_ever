@@ -16,28 +16,29 @@ class JoinViewModel extends AutoDisposeNotifier<User?> {
   }
 
   // 회원가입
-  Future<bool> join({
-    required String name,
-    required String email,
-    required String password,
-  }) async {
-    try {
-      // 회원가입 요청
-      final user = await userRepository.join(
-        name: name,
-        email: email,
-        password: password,
-      );
-      state = user;
-      return true;
-    } catch (e) {
-      print('회원가입 실패');
-      return false;
-    }
-  }
+  // Future<bool> join({
+  //   required String name,
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   try {
+  //     // 회원가입 요청
+  //     final user = await userRepository.join(
+  //       name: name,
+  //       email: email,
+  //       password: password,
+  //     );
+  //     state = user;
+  //     return true;
+  //   } catch (e) {
+  //     print('회원가입 실패');
+  //     return false;
+  //   }
+  // }
 }
 
 // 3. 뷰모델 관리자 만들기
-final joinViewModelProvider = AutoDisposeNotifierProvider<JoinViewModel, User?>(
-  () => JoinViewModel,
-);
+// final joinViewModelProvider = AutoDisposeNotifierProvider<JoinViewModel, User?>(
+//   // () => JoinViewModel,
+//   () => JoinViewModel(),
+// );
