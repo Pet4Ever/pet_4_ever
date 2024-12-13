@@ -12,6 +12,16 @@ class ChatDetailListView extends StatelessWidget {
   Chat chat;
   ChatDetailListView(this.chat);
 
+  final scrollController = ScrollController();
+
+  void scrollToBottom() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      curve: Curves.easeOut,
+      duration: Duration(milliseconds: 1),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -29,8 +39,13 @@ class ChatDetailListView extends StatelessWidget {
             bool isFirst = true;
             return ListView.builder(
               padding: EdgeInsets.all(20),
+              // reverse: true,
+              controller: scrollController,
               itemCount: messages.length,
               itemBuilder: (BuildContext context, int index) {
+                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                  if (scrollController.hasClients) scrollToBottom();
+                });
                 final item = messages[index];
 
                 if (item.sender_id == MY_ID) {
@@ -62,7 +77,7 @@ class ChatDetailListView extends StatelessWidget {
           Text(
             "3분전",
             style: TextStyle(
-              color: Colors.grey,
+              color: Colors.black38,
               fontSize: 12,
             ),
           ),
@@ -87,7 +102,7 @@ class ChatDetailListView extends StatelessWidget {
             Text(
               "3분전",
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.black38,
                 fontSize: 12,
               ),
             ),

@@ -24,7 +24,6 @@ class MessageRepository {
     });
   }
 
-
   Future<bool> sendMessage({
     required String chat_id,
     required String sender_id,

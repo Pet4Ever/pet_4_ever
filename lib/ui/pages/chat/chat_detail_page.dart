@@ -18,24 +18,29 @@ class ChatDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(OWNER_NAME),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          chatTitleBar(),
-          ChatDetailListView(chat),
-          chatInputSendBar(),
-        ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(OWNER_NAME),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: [
+            chatTitleBar(),
+            ChatDetailListView(chat),
+            chatInputSendBar(),
+          ],
+        ),
       ),
     );
   }
 
   Container chatInputSendBar() {
     return Container(
-      color: Colors.yellow[100],
+      color: Colors.yellow[200],
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Row(
         children: [
@@ -60,7 +65,7 @@ class ChatDetailPage extends StatelessWidget {
                   final vm = ref.read(messageViewModel(chat).notifier);
                   final sendResult = await vm.sendMessage(
                     chat_id: chat.id,
-                    sender_id: 'MY_ID',
+                    sender_id: MY_ID,
                     message: messageController.text,
                   );
 
@@ -81,7 +86,7 @@ class ChatDetailPage extends StatelessWidget {
 
   Container chatTitleBar() {
     return Container(
-      color: Colors.yellow[100],
+      color: Colors.yellow[200],
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
         children: [
