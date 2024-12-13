@@ -69,7 +69,7 @@ class ChatDetailListView extends StatelessWidget {
 
   Widget sentMessage(Message item) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -90,7 +90,7 @@ class ChatDetailListView extends StatelessWidget {
 
   Widget receivedMessage(Message item, bool isFirst) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         SizedBox.square(dimension: 50, child: isFirst ? profileImage() : null),
         SizedBox(width: 10),
@@ -100,7 +100,7 @@ class ChatDetailListView extends StatelessWidget {
             messageBox(Colors.white, item.message),
             SizedBox(width: 5),
             Text(
-              "3분전",
+              item.createdAt.toIso8601String(),
               style: TextStyle(
                 color: Colors.black38,
                 fontSize: 12,
