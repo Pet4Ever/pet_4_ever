@@ -2,7 +2,7 @@ class Message {
   String id;
   String sender_id;
   String message;
-  String createdAt;
+  DateTime createdAt;
 
   Message({
     required this.id,
@@ -16,7 +16,7 @@ class Message {
           id: map['id'],
           sender_id: map['sender_id'],
           message: map['message'],
-          createdAt: map['createdAt'],
+          createdAt: DateTime.parse(map['createdAt']),
         );
 
   Map<String, dynamic> toJson() {
@@ -24,7 +24,7 @@ class Message {
       'id': id,
       'sender_id': sender_id,
       'message': message,
-      'createdAt': createdAt,
+      'createdAt': createdAt.toIso8601String(),
     };
   }
 }
