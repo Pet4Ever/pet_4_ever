@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/login_page.dart';
@@ -16,6 +17,7 @@ class _JoinPageState extends State<JoinPage> {
   final emailController = TextEditingController();
   final pwController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  UserCredential? userCredential;
 
   @override
   void dispose() {
@@ -30,12 +32,20 @@ class _JoinPageState extends State<JoinPage> {
     if (formKey.currentState?.validate() ?? false) {
       // 유효성 검사 성공한 경우에만 회원가입 가능
       try {
-        final credential =
+        userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: pwController.text,
         );
-        print("회원가입 성공");
+        final uid = userCredential?.user?.uid;
+        final name = nameController.text;
+        final colRef = FirebaseFirestore.instance.collection('user');
+        final docRef = colRef.doc();
+        await docRef.set({
+          'address': "",
+          'name': name,
+          'id': uid,
+        });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');

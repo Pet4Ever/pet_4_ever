@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
@@ -13,6 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final pwController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  UserCredential? userCredential;
 
   @override
   void dispose() {
@@ -22,8 +24,24 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // 나중에 여기서 뷰모델 연동!
+  // 로그인시 페이지 이동
+  // 스낵바
   void onLoginClick() async {
-    if (formKey.currentState?.validate() ?? false) {}
+    if (formKey.currentState?.validate() ?? false) {
+      try {
+        userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: pwController.text,
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        }
+      }
+    }
   }
 
   @override
@@ -90,4 +108,13 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+
+SnackBar wrongSnackBar() {
+  return SnackBar(
+    backgroundColor: Color(0xFFFFA463),
+    duration:  Duration(seconds: 2),
+    content: Text('잘못된 '),
+  );
 }
