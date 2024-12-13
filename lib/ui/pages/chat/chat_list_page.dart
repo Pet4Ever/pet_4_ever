@@ -1,22 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/ui/pages/chat/chat_detail_page.dart';
+import 'package:pet_4_ever/ui/pages/chat/chat_view_model.dart';
 import 'package:pet_4_ever/ui/pages/chat/widgets/chat_detail_list_view.dart';
-
-void main() {
-  runApp(const ProviderScope(child: MyApp()));
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ChatListPage(),
-    );
-  }
-}
 
 class ChatListPage extends StatelessWidget {
   @override
@@ -30,15 +16,20 @@ class ChatListPage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(SAMPLE_IMAGE_URL),
+            image: AssetImage('assets/images/background.jpg'),
             fit: BoxFit.cover,
           ),
         ),
-        child: ListView.separated(
-          itemCount: 10,
-          separatorBuilder: (context, index) => SizedBox(height: 12),
-          itemBuilder: (context, index) {
-            return chatListItem(context);
+        child: Consumer(
+          builder: (context, ref, child) {
+            final chats = ref.watch(chatViewModel);
+            return ListView.separated(
+              itemCount: chats.length,
+              separatorBuilder: (context, index) => SizedBox(height: 12),
+              itemBuilder: (context, index) {
+                return chatListItem(context);
+              },
+            );
           },
         ),
       ),

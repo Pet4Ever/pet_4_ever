@@ -14,7 +14,7 @@ class ChatDetailListView extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(SAMPLE_IMAGE_URL),
+            image: AssetImage('assets/images/background.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -62,11 +62,7 @@ class ChatDetailListView extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        
-        SizedBox.square(
-          dimension: 50,
-          child: isFirst ? profileImage() : null
-        ),
+        SizedBox.square(dimension: 50, child: isFirst ? profileImage() : null),
         SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,12 +83,12 @@ class ChatDetailListView extends StatelessWidget {
 
   ClipRRect profileImage() {
     return ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: Image.network(
-            SAMPLE_IMAGE_URL,
-            fit: BoxFit.cover,
-          ),
-        );
+      borderRadius: BorderRadius.circular(30),
+      child: Image.network(
+        SAMPLE_IMAGE_URL,
+        fit: BoxFit.cover,
+      ),
+    );
   }
 
   Container messageBox(Color backgroundColor, String messaage) {
