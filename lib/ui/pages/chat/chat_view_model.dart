@@ -11,23 +11,17 @@ class ChatViewModel extends Notifier<List<Chat>> {
 
   Future<void> getChatList() async {
     final chatRepo = ChatRepository();
-    final chats = await chatRepo.getChatList();
-    print("chats :: $chats");
-    state = chats ?? [];
+    // final chats = await chatRepo.getChatList();
+    // print("chats :: $chats");
+    // state = chats ?? [];
+    final stream = chatRepo.chatListStream();
+    final streamSubscription = stream.listen((chats) {
+      state = chats;
+    });
+    ref.onDispose(() {
+      streamSubscription.cancel();
+    });
   }
-
-//   Future<void> getAllPosts() async {
-//   final postRepo = PostRepository();
-//   // final posts = await postRepo.getAll();
-//   // state = posts ?? [];
-//   final stream = postRepo.postListStream();
-//   final streamSubscription = stream.listen((posts) {
-//     state = posts;
-//   });
-//   ref.onDispose(() {
-//     streamSubscription.cancel();
-//   });
-// }
 }
 
 final chatViewModel = NotifierProvider<ChatViewModel, List<Chat>>(

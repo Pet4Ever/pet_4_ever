@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/ui/pages/chat/widgets/chat_detail_list_view.dart';
 
 final OWNER_NAME = "찡찡이 엄마";
 final SAMPLE_IMAGE_URL = "https://picsum.photos/200/300";
 final SAMPLE_PET_NAME = "찰리(3)";
 final SAMPLE_PET_MESSAGE = "나는 금발이 좋아!";
+final CHAT_ID = '9ZTt8T2lBhaTbxMmg4YB';
 
 class ChatDetailPage extends StatelessWidget {
+  Chat chat;
+  ChatDetailPage(this.chat);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +22,7 @@ class ChatDetailPage extends StatelessWidget {
       body: Column(
         children: [
           chatTitleBar(),
-          ChatDetailListView(),
+          ChatDetailListView(chat),
           chatInputSendBar(),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/ui/pages/chat/chat_detail_page.dart';
 import 'package:pet_4_ever/ui/pages/chat/chat_view_model.dart';
 import 'package:pet_4_ever/ui/pages/chat/widgets/chat_detail_list_view.dart';
@@ -27,7 +28,8 @@ class ChatListPage extends StatelessWidget {
               itemCount: chats.length,
               separatorBuilder: (context, index) => SizedBox(height: 12),
               itemBuilder: (context, index) {
-                return chatListItem(context);
+                var item = chats[index];
+                return chatListItem(context, item);
               },
             );
           },
@@ -36,12 +38,12 @@ class ChatListPage extends StatelessWidget {
     );
   }
 
-  Widget chatListItem(BuildContext context) {
+  Widget chatListItem(BuildContext context, Chat item) {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return ChatDetailPage();
+            return ChatDetailPage(item);
           },
         ));
       },
