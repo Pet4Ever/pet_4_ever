@@ -7,6 +7,7 @@ class Pet {
   int? age;
   String? size;
   String? special_notes;
+  bool? currentState;
 
   Pet({
     required this.id,
@@ -17,6 +18,7 @@ class Pet {
     required this.age,
     required this.size,
     required this.special_notes,
+    required this.currentState,
   });
 
   Pet.fromJson(Map<String, dynamic> map)
@@ -29,6 +31,7 @@ class Pet {
           age: map['age'],
           size: map['size'],
           special_notes: map['special_notes'],
+          currentState: map['currentState'] ?? false,
         );
 
   Map<String, dynamic> toJson() {
@@ -42,5 +45,29 @@ class Pet {
       'size': size,
       'special_notes': special_notes,
     };
+  }
+
+  Pet copyWith({
+    String? id,
+    String? name,
+    String? imageUrl,
+    String? species,
+    String? gender,
+    int? age,
+    String? size,
+    String? special_notes,
+    bool? currentState,
+  }) {
+    return Pet(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
+      species: species ?? this.species,
+      gender: gender ?? this.gender,
+      age: age ?? this.age,
+      size: size ?? this.size,
+      special_notes: special_notes ?? this.special_notes,
+      currentState: currentState ?? this.currentState,
+    );
   }
 }

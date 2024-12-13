@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/core/validator_util.dart';
 
-class IdTextFormField extends StatelessWidget {
-  const IdTextFormField({
+class EmailTextFormField extends StatelessWidget {
+  const EmailTextFormField({
     super.key,
     required this.controller,
   });
@@ -12,7 +12,7 @@ class IdTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      validator: ValidatorUtil.validatorId,
+      validator: ValidatorUtil.validatorEmail,
     );
   }
 }
