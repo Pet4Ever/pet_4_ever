@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-ElevatedButton uploadButton() {
+ElevatedButton uploadButton(
+  GlobalKey<FormState> formKey1,
+  GlobalKey<FormState> formKey2,
+  GlobalKey<FormState> formKey3,
+) {
   return ElevatedButton(
     //등록 버튼
     style: ElevatedButton.styleFrom(
@@ -10,10 +14,13 @@ ElevatedButton uploadButton() {
         borderRadius: BorderRadius.circular(10),
       ),
     ),
-    onPressed: () {
-      //TODO 등록 로직 구현
-      print('클릭됨');
+    onPressed: () async {
+      formKey1.currentState!.validate();
+      formKey2.currentState!.validate();
+      formKey3.currentState!.validate();
     },
+    // 유효성 검사 통과
+
     child: Text(
       '등록하기',
       style: TextStyle(color: Colors.white),

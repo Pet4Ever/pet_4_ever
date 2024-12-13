@@ -1,19 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
-Container imagePicker() {
-  return Container(
-    //강아지 사진 선택 버튼
-    //TODO imgae_picker 이용해 사진 가지고 오기
-    //TODO 가지고 온 사진 firebase storage에 저장
-    //업로드된 URL을 UserGlobalViewModel의 UserState 클래스 내 String? profileImageUrl;으로 관리
+//https://youngjumoney.tistory.com/12
 
-    height: 80,
-    width: 80,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: Colors.grey),
-      borderRadius: BorderRadius.circular(20),
-    ),
-    child: Icon(Icons.add_a_photo),
-  );
+class ImagePickerWidget extends StatefulWidget {
+  final Function(File) onImageSelected;
+
+  const ImagePickerWidget({Key? key, required this.onImageSelected})
+      : super(key: key);
+
+  @override
+  State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
+}
+
+class _ImagePickerWidgetState extends State<ImagePickerWidget> {
+  File? image; // 이미지 저장할 변수
+  final ImagePicker picker = ImagePicker();
+
+  Future<void> _getImage() async {
+    final XFile? pickedFile = //갤러링에서 이미지 가져오기
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        image = File(pickedFile.path); //이미지를 File 형태로 저장
+      });
+      widget.onImageSelected(image!); // 이미지를 부모 위젯에 전달
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _getImage,
+      child: Container(
+        height: 80,
+        width: 80,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: image == null
+            ? const Icon(Icons.add_a_photo)
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.file(image!, fit: BoxFit.cover),
+              ),
+      ),
+    );
+  }
 }

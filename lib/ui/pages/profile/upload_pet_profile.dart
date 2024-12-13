@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/profile/widgets/image_picker.dart';
-import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button.dart';
+import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button/dog_age.dart';
+import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button/dog_breeds.dart';
+import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button/selected_button.dart';
 import 'package:pet_4_ever/ui/pages/profile/widgets/text_input.dart';
 import 'package:pet_4_ever/ui/pages/profile/widgets/upload_button.dart';
 
@@ -13,6 +17,10 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController oneLineController = TextEditingController();
   final TextEditingController introductionController = TextEditingController();
+
+  final formKey1 = GlobalKey<FormState>();
+  final formKey2 = GlobalKey<FormState>();
+  final formKey3 = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -46,51 +54,58 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  imagePicker(),
+                  ImagePickerWidget(
+                    onImageSelected: (File image) {
+                      setState(() {});
+                    },
+                  ),
                   SizedBox(height: 20),
                   Row(
                     children: [
-                      selectedButton('견종'),
+                      SelectedButton(text: '견종', items: dogBreeds),
                       SizedBox(width: 10),
-                      selectedButton('크기'),
+                      SelectedButton(text: '크기', items: ['소형', '중형', '대형']),
                       SizedBox(width: 10),
-                      selectedButton('성별'),
+                      SelectedButton(text: '성별', items: ['남', '여']),
                       SizedBox(width: 10),
-                      selectedButton('나이'),
+                      SelectedButton(text: '나이', items: dogAge),
                     ],
                   ),
                   SizedBox(height: 15),
-                  Text('이름'), //TODO 이름 입력 받기
+                  Text('이름'),
                   SizedBox(height: 4),
                   textInput(
                     height: '40',
                     controller: nameController,
-                    hintText: '이름을',
+                    hintText: '이름',
                     maxLength: 10,
                     maxLines: 1,
+                    formKey: formKey1,
                   ),
                   SizedBox(height: 15),
-                  Text('한마디'), //TODO 한마디 입력 받기 (MAX10)
+                  Text('한마디'),
                   SizedBox(height: 4),
                   textInput(
-                    height: '300',
+                    height: '40',
                     controller: oneLineController,
-                    hintText: '한마디를',
+                    hintText: '한마디',
                     maxLength: 10,
                     maxLines: 1,
+                    formKey: formKey2,
                   ),
                   SizedBox(height: 15),
-                  Text('소개'), //TODO 소개 입력 받기 (MAX500)
+                  Text('소개'),
                   SizedBox(height: 4),
                   textInput(
                     height: '300',
                     controller: introductionController,
-                    hintText: '소개를',
+                    hintText: '소개',
                     maxLength: 200,
                     maxLines: 5,
+                    formKey: formKey3,
                   ),
                   SizedBox(height: 20),
-                  uploadButton(),
+                  uploadButton(formKey1, formKey2, formKey3),
                 ],
               ),
             ),
