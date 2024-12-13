@@ -110,11 +110,3 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-
-SnackBar wrongSnackBar() {
-  return SnackBar(
-    backgroundColor: Color(0xFFFFA463),
-    duration:  Duration(seconds: 2),
-    content: Text('잘못된 '),
-  );
-}

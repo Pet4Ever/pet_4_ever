@@ -1,12 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/login_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
-import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/name_text_form_field.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
+import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 
+// 1. 유저 레포지토리 회원정보 저장하는 함수 만들기 ---
+// 2. 뷰모델 만들기 뷰모델 안에서 유저레포지토리 호출
+// 3. 조인페이지(위젯)에서 뷰모델 함수 호출
 class JoinPage extends StatefulWidget {
   @override
   State<JoinPage> createState() => _JoinPageState();
@@ -39,18 +41,35 @@ class _JoinPageState extends State<JoinPage> {
         );
         final uid = userCredential?.user?.uid;
         final name = nameController.text;
-        final colRef = FirebaseFirestore.instance.collection('user');
-        final docRef = colRef.doc();
-        await docRef.set({
-          'address': "",
-          'name': name,
-          'id': uid,
-        });
+        // final colRef = FirebaseFirestore.instance.collection('user');
+        // final docRef = colRef.doc();
+        // await docRef.set({
+        //   'address': "",
+        //   'name': name,
+        //   'id': uid,
+        // }); 1번적어둔거 거기로 옮기기
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
         } else if (e.code == 'email-already-in-use') {
           print('The account already exists for that email.');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                '이미 사용중인 이메일 입니다',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              backgroundColor: Color(0xFFFFA463),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              behavior: SnackBarBehavior.floating,
+              elevation: 1,
+            ),
+          );
         }
       } catch (e) {
         print(e);
