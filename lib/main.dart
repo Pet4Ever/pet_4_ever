@@ -4,12 +4,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/firebase_options.dart';
 import 'package:pet_4_ever/theme.dart';
-import 'package:pet_4_ever/ui/pages/chat/chat_list_page.dart';
 import 'package:pet_4_ever/ui/pages/home/home_page.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-
+  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
