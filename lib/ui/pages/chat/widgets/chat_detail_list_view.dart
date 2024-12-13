@@ -75,14 +75,17 @@ class ChatDetailListView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            "3분전",
+            "오후 12:24",
             style: TextStyle(
               color: Colors.black38,
               fontSize: 12,
             ),
           ),
           SizedBox(width: 5),
-          messageBox(Colors.yellow, item.message),
+          Flexible(
+            fit: FlexFit.loose,
+            child: messageBox(Colors.yellow, item.message),
+          ),
         ],
       ),
     );
@@ -94,19 +97,24 @@ class ChatDetailListView extends StatelessWidget {
       children: [
         SizedBox.square(dimension: 50, child: isFirst ? profileImage() : null),
         SizedBox(width: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            messageBox(Colors.white, item.message),
-            SizedBox(width: 5),
-            Text(
-              item.createdAt.toIso8601String(),
-              style: TextStyle(
-                color: Colors.black38,
-                fontSize: 12,
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Flexible(
+                fit: FlexFit.loose,
+                child: messageBox(Colors.white, item.message),
               ),
-            ),
-          ],
+              SizedBox(width: 5),
+              Text(
+                "오후 12:24",
+                style: TextStyle(
+                  color: Colors.black38,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -122,7 +130,7 @@ class ChatDetailListView extends StatelessWidget {
     );
   }
 
-  Container messageBox(Color backgroundColor, String message) {
+  Widget messageBox(Color backgroundColor, String message) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
