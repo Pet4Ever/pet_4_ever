@@ -10,7 +10,7 @@ class MessageRepository {
         .collection('chat')
         .doc(chat_id)
         .collection('messages')
-        .orderBy('createdAt', descending: true);
+        .orderBy('createdAt');
 
     final stream = collectionRef.snapshots();
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/data/model/message.dart';
@@ -11,8 +10,9 @@ class MessageViewModel extends AutoDisposeFamilyNotifier<List<Message>, Chat> {
     return [];
   }
 
+  final messageRepo = MessageRepository();
+
   void getAllMessages(String chat_id) {
-    final messageRepo = MessageRepository();
     final stream = messageRepo.MessageListStream(chat_id);
     final streamSubscription = stream.listen((messages) {
       state = messages;
@@ -21,6 +21,19 @@ class MessageViewModel extends AutoDisposeFamilyNotifier<List<Message>, Chat> {
     ref.onDispose(() {
       streamSubscription.cancel();
     });
+  }
+
+  Future<bool> sendMessage({
+    required String chat_id,
+    required String sender_id,
+    required String message,
+  }) async {
+    final result = await messageRepo.sendMessage(
+      chat_id: chat_id,
+      sender_id: sender_id,
+      message: message,
+    );
+    return result;
   }
 }
 

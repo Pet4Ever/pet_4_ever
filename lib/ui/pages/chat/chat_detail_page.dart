@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
+import 'package:pet_4_ever/ui/pages/chat/message_view_model.dart';
 import 'package:pet_4_ever/ui/pages/chat/widgets/chat_detail_list_view.dart';
 
 final OWNER_NAME = "찡찡이 엄마";
@@ -11,6 +13,8 @@ final CHAT_ID = '9ZTt8T2lBhaTbxMmg4YB';
 class ChatDetailPage extends StatelessWidget {
   Chat chat;
   ChatDetailPage(this.chat);
+
+  final messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,7 @@ class ChatDetailPage extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              controller: messageController,
               decoration: InputDecoration(
                   isDense: true,
                   enabledBorder: OutlineInputBorder(
@@ -47,15 +52,27 @@ class ChatDetailPage extends StatelessWidget {
                   fillColor: Colors.white),
             ),
           ),
-          IconButton(
-            onPressed: () {
-              print("메세지 전송 버튼");
+          Consumer(
+            builder: (context, ref, child) {
+              return IconButton(
+                onPressed: () async {
+                  // print("메세지 전송 버튼");
+                  final vm = ref.read(messageViewModel(chat).notifier);
+                  final sendResult = await vm.sendMessage(
+                    chat_id: chat.id,
+                    sender_id: 'MY_ID',
+                    message: messageController.text,
+                  );
+
+                  if (sendResult) messageController.text = '';
+                },
+                icon: Icon(
+                  Icons.pets,
+                  size: 30,
+                  color: Colors.brown,
+                ),
+              );
             },
-            icon: Icon(
-              Icons.pets,
-              size: 30,
-              color: Colors.brown,
-            ),
           ),
         ],
       ),

@@ -25,6 +25,8 @@ class ChatDetailListView extends StatelessWidget {
         child: Consumer(
           builder: (context, ref, child) {
             final messages = ref.watch(messageViewModel(chat));
+            // receivedMessage 프로필 표시여부
+            bool isFirst = true;
             return ListView.builder(
               padding: EdgeInsets.all(20),
               itemCount: messages.length,
@@ -32,9 +34,15 @@ class ChatDetailListView extends StatelessWidget {
                 final item = messages[index];
 
                 if (item.sender_id == MY_ID) {
+                  isFirst = true;
                   return sentMessage(item);
                 } else {
-                  return receivedMessage(item, true);
+                  if (isFirst) {
+                    isFirst = false;
+                    return receivedMessage(item, true);
+                  } else {
+                    return receivedMessage(item, false);
+                  }
                 }
               },
             );
@@ -93,7 +101,7 @@ class ChatDetailListView extends StatelessWidget {
     );
   }
 
-  Container messageBox(Color backgroundColor, String messaage) {
+  Container messageBox(Color backgroundColor, String message) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -101,7 +109,7 @@ class ChatDetailListView extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        messaage,
+        message,
         style: TextStyle(
           fontWeight: FontWeight.bold,
         ),
