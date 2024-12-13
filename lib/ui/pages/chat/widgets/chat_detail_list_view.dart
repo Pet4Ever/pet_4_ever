@@ -53,18 +53,23 @@ class ChatDetailListView extends StatelessWidget {
   }
 
   Widget sentMessage(Message item) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        messageBox(Colors.yellow, item.message),
-        Text(
-          "3분전",
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 12,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            "3분전",
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 12,
+            ),
           ),
-        )
-      ],
+          SizedBox(width: 5),
+          messageBox(Colors.yellow, item.message),
+        ],
+      ),
     );
   }
 
@@ -74,17 +79,18 @@ class ChatDetailListView extends StatelessWidget {
       children: [
         SizedBox.square(dimension: 50, child: isFirst ? profileImage() : null),
         SizedBox(width: 10),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             messageBox(Colors.white, item.message),
+            SizedBox(width: 5),
             Text(
               "3분전",
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 12,
               ),
-            )
+            ),
           ],
         ),
       ],
