@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
-import 'package:pet_4_ever/ui/pages/login_join/widgets/id_text_form_field.dart';
+import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
 import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
 
@@ -10,20 +11,37 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final idController = TextEditingController();
+  final emailController = TextEditingController();
   final pwController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  UserCredential? userCredential;
 
   @override
   void dispose() {
-    idController.dispose();
+    emailController.dispose();
     pwController.dispose();
     super.dispose();
   }
 
   // 나중에 여기서 뷰모델 연동!
+  // 로그인시 페이지 이동
+  // 스낵바
   void onLoginClick() async {
-    if (formKey.currentState?.validate() ?? false) {}
+    if (formKey.currentState?.validate() ?? false) {
+      try {
+        userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: pwController.text,
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        }
+      }
+    }
   }
 
   @override
@@ -47,10 +65,10 @@ class _LoginPageState extends State<LoginPage> {
               LogoText(),
               SizedBox(height: 25),
               Text(
-                '아이디',
+                '이메일',
                 style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
               ),
-              IdTextFormField(controller: idController),
+              EmailTextFormField(controller: emailController),
               SizedBox(height: 15),
               Text(
                 '비밀번호',
@@ -91,3 +109,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
