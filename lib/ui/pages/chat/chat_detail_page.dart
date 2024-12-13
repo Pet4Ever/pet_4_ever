@@ -65,7 +65,7 @@ class ChatDetailPage extends StatelessWidget {
                   final vm = ref.read(messageViewModel(chat).notifier);
                   final sendResult = await vm.sendMessage(
                     chat_id: chat.id,
-                    sender_id: MY_ID,
+                    sender_id: 'MY_ID',
                     message: messageController.text,
                   );
 

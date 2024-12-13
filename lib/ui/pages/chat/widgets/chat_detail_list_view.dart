@@ -34,6 +34,7 @@ class ChatDetailListView extends StatelessWidget {
         ),
         child: Consumer(
           builder: (context, ref, child) {
+            if (scrollController.hasClients) scrollToBottom();
             final messages = ref.watch(messageViewModel(chat));
             // receivedMessage 프로필 표시여부
             bool isFirst = true;
@@ -43,9 +44,6 @@ class ChatDetailListView extends StatelessWidget {
               controller: scrollController,
               itemCount: messages.length,
               itemBuilder: (BuildContext context, int index) {
-                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                  if (scrollController.hasClients) scrollToBottom();
-                });
                 final item = messages[index];
 
                 if (item.sender_id == MY_ID) {
@@ -98,22 +96,25 @@ class ChatDetailListView extends StatelessWidget {
         SizedBox.square(dimension: 50, child: isFirst ? profileImage() : null),
         SizedBox(width: 10),
         Expanded(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Flexible(
-                fit: FlexFit.loose,
-                child: messageBox(Colors.white, item.message),
-              ),
-              SizedBox(width: 5),
-              Text(
-                "오후 12:24",
-                style: TextStyle(
-                  color: Colors.black38,
-                  fontSize: 12,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: messageBox(Colors.white, item.message),
                 ),
-              ),
-            ],
+                SizedBox(width: 5),
+                Text(
+                  "오후 12:24",
+                  style: TextStyle(
+                    color: Colors.black38,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
