@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
-import 'package:pet_4_ever/ui/pages/login_join/widgets/id_text_form_field.dart';
+import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
 import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
 
@@ -10,13 +10,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final idController = TextEditingController();
+  final emailController = TextEditingController();
   final pwController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    idController.dispose();
+    emailController.dispose();
     pwController.dispose();
     super.dispose();
   }
@@ -47,10 +47,10 @@ class _LoginPageState extends State<LoginPage> {
               LogoText(),
               SizedBox(height: 25),
               Text(
-                '아이디',
+                '이메일',
                 style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
               ),
-              IdTextFormField(controller: idController),
+              EmailTextFormField(controller: emailController),
               SizedBox(height: 15),
               Text(
                 '비밀번호',

@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/login_join/login_page.dart';
-import 'package:pet_4_ever/ui/pages/login_join/widgets/id_text_form_field.dart';
+import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
 import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/name_text_form_field.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
@@ -12,22 +13,41 @@ class JoinPage extends StatefulWidget {
 
 class _JoinPageState extends State<JoinPage> {
   final nameController = TextEditingController();
-  final idController = TextEditingController();
+  final emailController = TextEditingController();
   final pwController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     nameController.dispose();
-    idController.dispose();
+    emailController.dispose();
     pwController.dispose();
     super.dispose();
   }
 
   // 회원가입 버튼 함수
-  void onJoin() {
-    formKey.currentState?.validate();
-    print('onJoin');
+  void onJoin() async {
+    if (formKey.currentState?.validate() ?? false) {
+      // 유효성 검사 성공한 경우에만 회원가입 가능
+      try {
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: pwController.text,
+        );
+        print("회원가입 성공");
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
+      }
+    } else {
+      print("회원가입 실패");
+    }
   }
 
   @override
@@ -66,10 +86,10 @@ class _JoinPageState extends State<JoinPage> {
               NameTextFormField(controller: nameController),
               SizedBox(height: 15),
               Text(
-                '아이디',
+                '이메일',
                 style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
               ),
-              IdTextFormField(controller: idController),
+              EmailTextFormField(controller: emailController),
               SizedBox(height: 15),
               Text(
                 '비밀번호',
