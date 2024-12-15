@@ -9,7 +9,8 @@ class AuthRepository {
   AuthRepository(this.firebaseAuth);
 
   // 회원가입
-  Future<void> Join(String email, String password, String name) async {
+  // 
+  Future<User?> join(String email, String password, String name) async {
     try {
       final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -17,7 +18,7 @@ class AuthRepository {
       );
 
       // 새로만든 사용자 정보
-      User? user = userCredential.user;
+      final user = userCredential.user;
 
       if (user != null) {
         // FireStore에 회원가입한 사용자 정보 저장
@@ -26,17 +27,19 @@ class AuthRepository {
 
         await docRef.set({
           'name': name,
-          'email': email,
+          'email': user.email,
           'uid': user.uid,
         });
       }
+      return user;
     } catch (e) {
       print(e);
+      return null;
     }
   }
 
   // 로그인
-  Future<User?> signIn(String email, String password) async {
+  Future<User?> login(String email, String password) async {
     try {
       final userCredential = await firebaseAuth.signInWithEmailAndPassword(
         email: email,

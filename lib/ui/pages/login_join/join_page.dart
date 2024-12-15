@@ -34,6 +34,7 @@ class _JoinPageState extends State<JoinPage> {
     if (formKey.currentState?.validate() ?? false) {
       // 유효성 검사 성공한 경우에만 회원가입 가능
       try {
+        // 회원가입 (Firebase)
         userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
@@ -41,13 +42,6 @@ class _JoinPageState extends State<JoinPage> {
         );
         final uid = userCredential?.user?.uid;
         final name = nameController.text;
-        // final colRef = FirebaseFirestore.instance.collection('user');
-        // final docRef = colRef.doc();
-        // await docRef.set({
-        //   'address': "",
-        //   'name': name,
-        //   'id': uid,
-        // }); 1번적어둔거 거기로 옮기기
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
