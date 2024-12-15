@@ -22,11 +22,11 @@ class FriendsPage extends ConsumerWidget {
             ? Center(child: Text('친구가 없어요.'))
             : GridView.builder(
                 padding: EdgeInsets.all(20),
-                itemCount: 10,
+                itemCount: friends.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   childAspectRatio: 3 / 4, // 가로/세로 가로:세로
-                  crossAxisSpacing: 10,
+                  crossAxisSpacing: 15,
                   mainAxisSpacing: 20,
                 ),
                 itemBuilder: (context, index) {
