@@ -67,20 +67,3 @@ class AuthRepository {
     }
   }
 }
-
-
-
-// class UserRepository {
-//   final userCollection = FirebaseFirestore.instance.collection('user');
-
-//   Future<List<User>> getUsers() async {
-//     final querySnapshot = await userCollection.get();
-
-//     return querySnapshot.docs.map((doc) {
-//       return User.fromJson({
-//         'id': doc.id,
-//         ...doc.data() as Map<String, dynamic>,
-//       });
-//     }).toList();
-//   }
-// }

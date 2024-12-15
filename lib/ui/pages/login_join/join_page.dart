@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/ui/pages/login_join/auth_view_model.dart';
@@ -33,46 +32,6 @@ class _JoinPageState extends ConsumerState<JoinPage> {
   // 회원가입 버튼 함수
   void onJoin(BuildContext context, WidgetRef ref) async {
     if (formKey.currentState?.validate() ?? false) {
-      // 유효성 검사 성공한 경우에만 회원가입 가능
-      //   try {
-      //     // 회원가입 (Firebase)
-      //     userCredential =
-      //         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      //       email: emailController.text,
-      //       password: pwController.text,
-      //     );
-      //     final uid = userCredential?.user?.uid;
-      //     final name = nameController.text;
-      //   } on FirebaseAuthException catch (e) {
-      //     if (e.code == 'weak-password') {
-      //       print('The password provided is too weak.');
-      //     } else if (e.code == 'email-already-in-use') {
-      //       print('The account already exists for that email.');
-      //       ScaffoldMessenger.of(context).showSnackBar(
-      //         SnackBar(
-      //           content: Text(
-      //             '이미 사용중인 이메일 입니다',
-      //             style: TextStyle(
-      //               fontSize: 15,
-      //               fontWeight: FontWeight.bold,
-      //             ),
-      //             textAlign: TextAlign.center,
-      //           ),
-      //           backgroundColor: Color(0xFFFFA463),
-      //           shape: RoundedRectangleBorder(
-      //               borderRadius: BorderRadius.circular(20)),
-      //           behavior: SnackBarBehavior.floating,
-      //           elevation: 1,
-      //         ),
-      //       );
-      //     }
-      //   } catch (e) {
-      //     print(e);
-      //   }
-      // } else {
-      //   print("회원가입 실패");
-      // }
-      // 유효성 검사 성공시 회원가입 가능
       final name = nameController.text;
       final email = emailController.text;
       final password = pwController.text;
