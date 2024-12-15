@@ -4,6 +4,7 @@ import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
 import 'package:pet_4_ever/ui/pages/friends/friends_view_model.dart';
 import 'package:pet_4_ever/ui/pages/friends/widgets/friend_item.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class FriendsPage extends ConsumerWidget {
   @override
@@ -11,7 +12,12 @@ class FriendsPage extends ConsumerWidget {
     final friends = ref.watch(friendViewModelProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text('우리사이')), // TODO: appbar theme
+      appBar: AppBar(
+        title: Center(
+          child:
+              SvgPicture.asset("assets/images/mainLogo.svg", fit: BoxFit.cover),
+        ),
+      ),
       // TODO: consumer로 감싸서 구독
       body: Container(
         decoration: BoxDecoration(
