@@ -25,6 +25,6 @@ class AuthViewModel extends StateNotifier<User?> {
 }
 
 // 3. 뷰모델 관리자
-final authViewModelProvider = StateNotifierProvider<AuthViewModel, void> (
-  (ref) => AuthViewModel(FirebaseAuth.instance as AuthRepository),
+final authViewModelProvider = StateNotifierProvider<AuthViewModel, User?> (
+  (ref) => AuthViewModel(AuthRepository(FirebaseAuth.instance)),
 );

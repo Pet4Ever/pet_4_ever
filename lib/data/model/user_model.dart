@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+// user.dart 모델이랑 auth의 user이랑 겹치는 부분이 에러가 나는거 같아서 userModel.dart로 바꿔줌
+
 class UserModel {
   String uid;
   String email;
