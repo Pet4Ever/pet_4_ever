@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_4_ever/constant.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/ui/pages/chat/chat_detail_page.dart';
 import 'package:pet_4_ever/ui/pages/chat/chat_view_model.dart';
@@ -17,7 +18,7 @@ class ChatListPage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background.jpg'),
+            image: AssetImage(BACKGROUND_IMAGE_URL),
             fit: BoxFit.cover,
           ),
         ),
