@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_4_ever/constant.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/data/model/message.dart';
 import 'package:pet_4_ever/ui/pages/chat/chat_detail_page.dart';
@@ -28,36 +29,45 @@ class ChatDetailListView extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background.jpg'),
+            image: AssetImage(BACKGROUND_IMAGE_URL),
             fit: BoxFit.cover,
           ),
         ),
         child: Consumer(
           builder: (context, ref, child) {
-            if (scrollController.hasClients) scrollToBottom();
             final messages = ref.watch(messageViewModel(chat));
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (scrollController.hasClients) {
+                scrollToBottom();
+              }
+            });
             // receivedMessage 프로필 표시여부
             bool isFirst = true;
-            return ListView.builder(
-              padding: EdgeInsets.all(20),
-              // reverse: true,
+            return Scrollbar(
               controller: scrollController,
-              itemCount: messages.length,
-              itemBuilder: (BuildContext context, int index) {
-                final item = messages[index];
-
-                if (item.sender_id == MY_ID) {
-                  isFirst = true;
-                  return sentMessage(item);
-                } else {
-                  if (isFirst) {
-                    isFirst = false;
-                    return receivedMessage(item, true);
+              // thumbVisibility: true,
+              thickness: 8,
+              child: ListView.builder(
+                padding: EdgeInsets.all(20),
+                // reverse: true,
+                controller: scrollController,
+                itemCount: messages.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final item = messages[index];
+              
+                  if (item.sender_id == MY_ID) {
+                    isFirst = true;
+                    return sentMessage(item);
                   } else {
-                    return receivedMessage(item, false);
+                    if (isFirst) {
+                      isFirst = false;
+                      return receivedMessage(item, true);
+                    } else {
+                      return receivedMessage(item, false);
+                    }
                   }
-                }
-              },
+                },
+              ),
             );
           },
         ),
