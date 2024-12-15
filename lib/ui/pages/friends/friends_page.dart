@@ -13,21 +13,27 @@ class FriendsPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text('우리사이')), // TODO: appbar theme
       // TODO: consumer로 감싸서 구독
-      body: friends.isEmpty
-          ? Center(child: Text('친구가 없어요.'))
-          : GridView.builder(
-              padding: EdgeInsets.all(20),
-              itemCount: 10,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 3 / 4, // 가로/세로 가로:세로
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 20,
-              ),
-              itemBuilder: (context, index) {
-                final pet = friends[index];
-                return FriendItem(pet: pet);
-              }),
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/background.jpg"),
+                fit: BoxFit.cover)),
+        child: friends.isEmpty
+            ? Center(child: Text('친구가 없어요.'))
+            : GridView.builder(
+                padding: EdgeInsets.all(20),
+                itemCount: 10,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 3 / 4, // 가로/세로 가로:세로
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 20,
+                ),
+                itemBuilder: (context, index) {
+                  final pet = friends[index];
+                  return FriendItem(pet: pet);
+                }),
+      ),
     );
   }
 }
