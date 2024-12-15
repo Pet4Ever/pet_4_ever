@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
+import 'package:pet_4_ever/theme.dart';
 
 class FriendItem extends StatelessWidget {
   final Pet pet; // Pet 객체를 받도록 수정
@@ -21,6 +22,9 @@ class FriendItem extends StatelessWidget {
             ),
             builder: (context) {
               return Container(
+                decoration: BoxDecoration(
+                  color: AppColors.lightYellow,
+                ),
                 padding: EdgeInsets.all(20),
                 width: double.infinity,
                 height: 300,
@@ -37,7 +41,8 @@ class FriendItem extends StatelessWidget {
           width: 115,
           height: 145,
           decoration: BoxDecoration(
-              color: Colors.amber, borderRadius: BorderRadius.circular(10)),
+              color: Theme.of(context).highlightColor,
+              borderRadius: BorderRadius.circular(10)),
           child: Column(
             children: [
               // 강쥐 사진
