@@ -5,6 +5,8 @@ import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/ui/pages/chat/chat_detail_page.dart';
 import 'package:pet_4_ever/ui/pages/chat/chat_view_model.dart';
 import 'package:pet_4_ever/ui/pages/chat/widgets/chat_detail_list_view.dart';
+import 'package:pet_4_ever/ui/pages/home/home_view_model.dart';
+import 'package:pet_4_ever/ui/pages/map/map_page.dart';
 
 class ChatListPage extends StatelessWidget {
   @override
@@ -26,9 +28,22 @@ class ChatListPage extends StatelessWidget {
           builder: (context, ref, child) {
             final chats = ref.watch(chatViewModel);
             return ListView.separated(
-              itemCount: chats.length,
+              itemCount: chats.length + 1,
               separatorBuilder: (context, index) => SizedBox(height: 12),
               itemBuilder: (context, index) {
+                if (index == chats.length) {
+                  return IconButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          final latLng = ref.watch(homeViewModel).latLng;
+                          return MapPage(latLng);
+                        },
+                      ));
+                    },
+                    icon: Icon(Icons.map),
+                  );
+                }
                 var item = chats[index];
                 return chatListItem(context, item);
               },
