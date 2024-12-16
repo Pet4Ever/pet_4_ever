@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_4_ever/ui/pages/profile/upload_pet_profile.dart';
+import 'package:pet_4_ever/ui/pages/profile/pet_upload_page.dart';
 
 class AddProfileBox extends StatelessWidget {
   const AddProfileBox({

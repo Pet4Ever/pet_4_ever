@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
-import 'package:pet_4_ever/ui/pages/mypage/my_page_view_model.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/mypage/my_page_view_model.dart';
 
 //반려견 프로필
 

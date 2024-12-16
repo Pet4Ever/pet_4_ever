@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/constant.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
-import 'package:pet_4_ever/ui/pages/friends/friends_view_model.dart';
-import 'package:pet_4_ever/ui/pages/friends/widgets/friend_item.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/friends/friends_view_model.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/friend_item.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FriendsPage extends ConsumerWidget {

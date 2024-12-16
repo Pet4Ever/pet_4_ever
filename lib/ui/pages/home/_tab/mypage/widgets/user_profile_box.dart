@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet_4_ever/ui/pages/mypage/user_data_view_model.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/mypage/user_data_view_model.dart';
 import 'package:pet_4_ever/user_data.dart';
 
 class UserProfileBox extends StatelessWidget {

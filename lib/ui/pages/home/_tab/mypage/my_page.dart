@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet_4_ever/ui/pages/mypage/my_page_view_model.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/mypage/my_page_view_model.dart';
 import 'package:pet_4_ever/user_data.dart';
-import 'package:pet_4_ever/ui/pages/mypage/widgets/dog_grid_view_box.dart';
-import 'package:pet_4_ever/ui/pages/mypage/widgets/user_profile_box.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/mypage/widgets/dog_grid_view_box.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/mypage/widgets/user_profile_box.dart';
 
 class Mypage extends StatelessWidget {
   @override

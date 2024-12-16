@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
-import 'package:pet_4_ever/ui/pages/chat/message_view_model.dart';
-import 'package:pet_4_ever/ui/pages/chat/widgets/chat_detail_list_view.dart';
+import 'package:pet_4_ever/ui/pages/chat_detail/message_view_model.dart';
+import 'package:pet_4_ever/ui/pages/chat_detail/widgets/chat_detail_list_view.dart';
 
 final OWNER_NAME = "찡찡이 엄마";
 final SAMPLE_IMAGE_URL = "https://picsum.photos/200/300";

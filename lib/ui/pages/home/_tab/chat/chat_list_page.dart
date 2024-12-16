@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/constant.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
-import 'package:pet_4_ever/ui/pages/chat/chat_detail_page.dart';
-import 'package:pet_4_ever/ui/pages/chat/chat_view_model.dart';
-import 'package:pet_4_ever/ui/pages/chat/widgets/chat_detail_list_view.dart';
+import 'package:pet_4_ever/ui/pages/chat_detail/chat_detail_page.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/chat/chat_view_model.dart';
+import 'package:pet_4_ever/ui/pages/chat_detail/widgets/chat_detail_list_view.dart';
 import 'package:pet_4_ever/ui/pages/home/home_view_model.dart';
 import 'package:pet_4_ever/ui/pages/map/map_page.dart';
 

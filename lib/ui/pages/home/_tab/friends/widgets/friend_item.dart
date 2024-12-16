@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
-import 'package:pet_4_ever/ui/pages/chat/chat_list_page.dart';
-import 'package:pet_4_ever/ui/pages/friends/widgets/pet_image.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/chat/chat_list_page.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
 
 class FriendItem extends StatelessWidget {
   final Pet pet; // Pet 객체를 받도록 수정
