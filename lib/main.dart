@@ -5,8 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/firebase_options.dart';
 import 'package:pet_4_ever/theme.dart';
 import 'package:pet_4_ever/ui/pages/home/home_page.dart';
+import 'package:pet_4_ever/ui/pages/profile/upload_pet_profile.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await dotenv.load(fileName: ".env");
   
   WidgetsFlutterBinding.ensureInitialized();

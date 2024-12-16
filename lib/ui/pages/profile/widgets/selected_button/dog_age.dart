@@ -1,4 +1,4 @@
-List<String> dogAge = List.generate(30, (index) => '${index + 1}살');
+List<String> dogAge = List.generate(30, (index) => '${index + 1}');
 
 
 //List<T> List.generate(int length, T Function(int index) generator)

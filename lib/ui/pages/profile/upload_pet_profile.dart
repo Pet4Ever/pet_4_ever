@@ -6,7 +6,7 @@ import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button/dog_age.dart
 import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button/dog_breeds.dart';
 import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button/selected_button.dart';
 import 'package:pet_4_ever/ui/pages/profile/widgets/text_input.dart';
-import 'package:pet_4_ever/ui/pages/profile/widgets/upload_button.dart';
+import 'package:pet_4_ever/ui/pages/profile/upload_button.dart';
 
 class UploadPetProfile extends StatefulWidget {
   @override
@@ -22,12 +22,28 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
   final formKey2 = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
 
+  File? image;
+
+  String? species;
+  String? size;
+  String? gender;
+  int? age;
+
   @override
   void dispose() {
     nameController.dispose();
     oneLineController.dispose();
     introductionController.dispose();
     super.dispose();
+  }
+
+  void clearFields() {
+    setState(() {
+      image = null;
+      nameController.clear();
+      oneLineController.clear();
+      introductionController.clear();
+    });
   }
 
   @override
@@ -38,7 +54,10 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('새로운 프로필'),
+          title: Text(
+            '새로운 프로필',
+            style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
+          ),
         ),
         body: Container(
           // 배경이미지
@@ -56,23 +75,57 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
                 children: [
                   ImagePickerWidget(
                     onImageSelected: (File image) {
-                      setState(() {});
+                      setState(() {
+                        this.image = image;
+                      });
                     },
                   ),
                   SizedBox(height: 20),
                   Row(
                     children: [
-                      SelectedButton(text: '견종', items: dogBreeds),
+                      SelectedButton(
+                        text: '견종',
+                        items: dogBreeds,
+                        onSelected: (value) {
+                          setState(() {
+                            species = value;
+                          });
+                        },
+                      ),
                       SizedBox(width: 10),
-                      SelectedButton(text: '크기', items: ['소형', '중형', '대형']),
+                      SelectedButton(
+                          text: '크기',
+                          items: ['소형', '중형', '대형'],
+                          onSelected: (value) {
+                            setState(() {
+                              size = value;
+                            });
+                          }),
                       SizedBox(width: 10),
-                      SelectedButton(text: '성별', items: ['남', '여']),
+                      SelectedButton(
+                          text: '성별',
+                          items: ['남', '여', '중성'],
+                          onSelected: (value) {
+                            setState(() {
+                              gender = value;
+                            });
+                          }),
                       SizedBox(width: 10),
-                      SelectedButton(text: '나이', items: dogAge),
+                      SelectedButton(
+                          text: '나이',
+                          items: dogAge,
+                          onSelected: (value) {
+                            setState(() {
+                              age = int.parse(value);
+                            });
+                          }),
                     ],
                   ),
                   SizedBox(height: 15),
-                  Text('이름'),
+                  Text(
+                    '이름',
+                    style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
+                  ),
                   SizedBox(height: 4),
                   textInput(
                     height: '40',
@@ -83,7 +136,10 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
                     formKey: formKey1,
                   ),
                   SizedBox(height: 15),
-                  Text('한마디'),
+                  Text(
+                    '한마디',
+                    style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
+                  ),
                   SizedBox(height: 4),
                   textInput(
                     height: '40',
@@ -94,7 +150,10 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
                     formKey: formKey2,
                   ),
                   SizedBox(height: 15),
-                  Text('소개'),
+                  Text(
+                    '소개',
+                    style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
+                  ),
                   SizedBox(height: 4),
                   textInput(
                     height: '300',
@@ -105,7 +164,21 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
                     formKey: formKey3,
                   ),
                   SizedBox(height: 20),
-                  uploadButton(formKey1, formKey2, formKey3),
+                  uploadButton(
+                    context,
+                    formKey1,
+                    formKey2,
+                    formKey3,
+                    image,
+                    species ?? '시고르자브종',
+                    size ?? '몰라요',
+                    gender ?? '몰라요',
+                    age ?? 0,
+                    nameController.text,
+                    oneLineController.text,
+                    introductionController.text,
+                    clearFields,
+                  ),
                 ],
               ),
             ),
