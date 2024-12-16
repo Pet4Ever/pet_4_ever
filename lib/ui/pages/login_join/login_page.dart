@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet_4_ever/ui/pages/friends/friends_page.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/friends/friends_page.dart';
 import 'package:pet_4_ever/ui/pages/home/home_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';

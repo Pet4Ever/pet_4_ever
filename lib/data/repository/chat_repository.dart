@@ -1,31 +1,14 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
+import 'package:pet_4_ever/user_data.dart';
 
 String userId = "샘플유저아이디";
 
 class ChatRepository {
   ChatRepository();
 
-  // Future<List<Chat>?> getChatList() async {
-  //   try {
-  //     FirebaseFirestore firestore = FirebaseFirestore.instance;
-  //     final collectionRef = firestore.collection('chat');
-  //     // .where("users", arrayContains: userId);
-  //     final result = await collectionRef.get();
-  //     final docs = result.docs;
-
-  //     return docs.map((doc) {
-  //       final map = {
-  //         'id': doc.id,
-  //         ...doc.data(),
-  //       };
-  //       return Chat.fromJson(map);
-  //     }).toList();
-  //   } catch (e) {
-  //     print("e :: $e");
-  //     return null;
-  //   }
-  // }
   Stream<List<Chat>> chatListStream() {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('chat');
@@ -39,6 +22,28 @@ class ChatRepository {
         });
       }).toList();
     });
+  }
+
+  static Future<Chat?> findChat(String pet_id) async {
+    final firestore = FirebaseFirestore.instance;
+    final collectionRef = firestore.collection('chat');
+    final query = collectionRef
+        .where('pet_id', isEqualTo: pet_id)
+        .where('users', arrayContains: loginedUser!.id);
+
+    final result = await query.get();
+    final docs = result.docs;
+
+    if (docs.length > 0) {
+      return docs.map((doc) {
+        return Chat.fromJson({
+          'id': doc.id,
+          ...doc.data(),
+        });
+      }).toList().first;
+    } else {
+      
+    }
   }
 
   // CREATE
