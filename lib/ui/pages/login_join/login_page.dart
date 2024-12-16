@@ -1,29 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_4_ever/ui/pages/friends/friends_page.dart';
+import 'package:pet_4_ever/ui/pages/home/home_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
-import 'package:pet_4_ever/ui/pages/login_join/widgets/id_text_form_field.dart';
+import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
+import 'package:pet_4_ever/user_data.dart';
 import 'package:pet_4_ever/ui/widgets/logo_text.dart';
+import 'package:pet_4_ever/ui/pages/login_join/auth_view_model.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
+import 'package:pet_4_ever/ui/widgets/dog_snack_bar.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final idController = TextEditingController();
+class _LoginPageState extends ConsumerState<LoginPage> {
+  final emailController = TextEditingController();
   final pwController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    idController.dispose();
+    emailController.dispose();
     pwController.dispose();
     super.dispose();
   }
 
   // 나중에 여기서 뷰모델 연동!
-  void onLoginClick() async {
-    if (formKey.currentState?.validate() ?? false) {}
+  // 로그인시 페이지 이동
+  // 스낵바
+  void onLoginClick(BuildContext context, WidgetRef ref) async {
+    if (formKey.currentState?.validate() ?? false) {
+      try {
+        // AuthRepository 로그인 함수 호출
+        await ref.read(authViewModelProvider.notifier).login(
+              emailController.text,
+              pwController.text,
+            );
+
+        userData.insert(0, userCredential?.user);
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+          (route) => false,
+        );
+      } catch (e) {
+        // 로그인 실패(예외 유형 따라 다른 스낵바 표시)
+        ScaffoldMessenger.of(context).showSnackBar(
+          dogSnackBar(
+            e.toString().replaceFirst('Exception: ', ''),
+            backgroundColor: Color(0xFFFB6066),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -47,10 +78,10 @@ class _LoginPageState extends State<LoginPage> {
               LogoText(),
               SizedBox(height: 25),
               Text(
-                '아이디',
+                '이메일',
                 style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
               ),
-              IdTextFormField(controller: idController),
+              EmailTextFormField(controller: emailController),
               SizedBox(height: 15),
               Text(
                 '비밀번호',
@@ -59,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
               PwTextFormField(controller: pwController),
               SizedBox(height: 40),
               ElevatedButton(
-                onPressed: onLoginClick,
+                onPressed: () => onLoginClick(context, ref),
                 child: Text('로그인'),
               ),
               GestureDetector(

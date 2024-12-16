@@ -1,61 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
+import 'package:pet_4_ever/ui/pages/friends/friends_view_model.dart';
+import 'package:pet_4_ever/ui/pages/friends/widgets/friend_item.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class FriendsPage extends StatelessWidget {
+class FriendsPage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final friends = ref.watch(friendViewModelProvider);
+
     return Scaffold(
-      appBar: AppBar(title: Text('우리사이')), // TODO: appbar theme
-      body: GridView.builder(
-          padding: EdgeInsets.all(20),
-          itemCount: 10,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 3 / 4, // 가로/세로 가로:세로
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 20,
-          ),
-          itemBuilder: (context, index) {
-            //Image.network("https://picsum.photos/200");
-            return Container(
-                width: 115,
-                height: 145,
-                decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  children: [
-                    // 강쥐 사진
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        width: 115,
-                        height: 92,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage('https://picsum.photos/200'),
-                              fit: BoxFit.cover),
-                        ),
-                      ),
-                    ),
-                    // 텍스트
-                    SizedBox(height: 10),
-                    Expanded(
-                      child: Container(
-                        child: Column(
-                          //crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('멍멍이',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text('산책하는 시바'),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ));
-          }),
+      appBar: AppBar(
+        title: Center(
+          child: SvgPicture.asset("assets/images/mainLogo.svg"),
+        ),
+      ),
+      // TODO: consumer로 감싸서 구독
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/background.jpg"),
+                fit: BoxFit.cover)),
+        child: friends.isEmpty
+            ? Center(child: Text('친구가 없어요.'))
+            : GridView.builder(
+                padding: EdgeInsets.all(20),
+                itemCount: friends.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 3 / 4, // 가로/세로 가로:세로
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 20,
+                ),
+                itemBuilder: (context, index) {
+                  final pet = friends[index];
+                  return FriendItem(pet: pet);
+                }),
+      ),
     );
   }
 }

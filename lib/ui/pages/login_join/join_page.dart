@@ -1,33 +1,77 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_4_ever/ui/pages/login_join/auth_view_model.dart';
 import 'package:pet_4_ever/ui/pages/login_join/login_page.dart';
-import 'package:pet_4_ever/ui/pages/login_join/widgets/id_text_form_field.dart';
-import 'package:pet_4_ever/ui/widgets/logo_text.dart';
+import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/name_text_form_field.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
+import 'package:pet_4_ever/ui/widgets/dog_snack_bar.dart';
+import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 
-class JoinPage extends StatefulWidget {
+// 1. 유저 레포지토리 회원정보 저장하는 함수 만들기 ---
+// 2. 뷰모델 만들기 뷰모델 안에서 유저레포지토리 호출
+// 3. 조인페이지(위젯)에서 뷰모델 함수 호출
+class JoinPage extends ConsumerStatefulWidget {
   @override
-  State<JoinPage> createState() => _JoinPageState();
+  _JoinPageState createState() => _JoinPageState();
 }
 
-class _JoinPageState extends State<JoinPage> {
+class _JoinPageState extends ConsumerState<JoinPage> {
   final nameController = TextEditingController();
-  final idController = TextEditingController();
+  final emailController = TextEditingController();
   final pwController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     nameController.dispose();
-    idController.dispose();
+    emailController.dispose();
     pwController.dispose();
     super.dispose();
   }
 
   // 회원가입 버튼 함수
-  void onJoin() {
-    formKey.currentState?.validate();
-    print('onJoin');
+  void onJoin(BuildContext context, WidgetRef ref) async {
+    if (formKey.currentState?.validate() ?? false) {
+      final name = nameController.text;
+      final email = emailController.text;
+      final password = pwController.text;
+
+      try {
+        // 회원가입 시도
+        await ref
+            .read(authViewModelProvider.notifier)
+            .join(email, password, name);
+
+        // 회원가입 성공
+        ScaffoldMessenger.of(context).showSnackBar(
+          dogSnackBar('회원가입이 성공!'),
+        );
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginPage(),
+          ),
+        );
+      } on Exception catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          dogSnackBar(
+            e.toString().replaceFirst('Exception: ', ''),
+            backgroundColor: Color(0xFFFB6066),
+          ),
+        );
+      } 
+    } else {
+      print('회원가입 실패');
+      ScaffoldMessenger.of(context).showSnackBar(
+        dogSnackBar(
+          '회원가입이 실패!',
+          backgroundColor: Color(0xFFFB6066),
+        ),
+      );
+    }
   }
 
   @override
@@ -66,10 +110,10 @@ class _JoinPageState extends State<JoinPage> {
               NameTextFormField(controller: nameController),
               SizedBox(height: 15),
               Text(
-                '아이디',
+                '이메일',
                 style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
               ),
-              IdTextFormField(controller: idController),
+              EmailTextFormField(controller: emailController),
               SizedBox(height: 15),
               Text(
                 '비밀번호',
@@ -78,7 +122,10 @@ class _JoinPageState extends State<JoinPage> {
               PwTextFormField(controller: pwController),
               SizedBox(height: 40),
               ElevatedButton(
-                onPressed: onJoin,
+                onPressed: () async {
+                  onJoin(context, ref);
+                  // 호출
+                },
                 child: Text('회원가입'),
               ),
               GestureDetector(
