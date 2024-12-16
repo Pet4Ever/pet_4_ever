@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/ui/pages/login_join/auth_view_model.dart';
@@ -5,6 +6,7 @@ import 'package:pet_4_ever/ui/pages/login_join/login_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/name_text_form_field.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
+import 'package:pet_4_ever/ui/widgets/dog_snack_bar.dart';
 import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 
 // 1. 유저 레포지토리 회원정보 저장하는 함수 만들기 ---
@@ -36,26 +38,39 @@ class _JoinPageState extends ConsumerState<JoinPage> {
       final email = emailController.text;
       final password = pwController.text;
 
-      await ref
-          .read(authViewModelProvider.notifier)
-          .join(email, password, name);
+      try {
+        // 회원가입 시도
+        await ref
+            .read(authViewModelProvider.notifier)
+            .join(email, password, name);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            '회원가입이 완료되었습니다!',
+        // 회원가입 성공
+        ScaffoldMessenger.of(context).showSnackBar(
+          dogSnackBar('회원가입이 성공!'),
+        );
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginPage(),
           ),
-        ),
-      );
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginPage(),
-        ),
-      );
+        );
+      } on Exception catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          dogSnackBar(
+            e.toString().replaceFirst('Exception: ', ''),
+            backgroundColor: Color(0xFFFB6066),
+          ),
+        );
+      } 
     } else {
-      print("회원가입 실패");
+      print('회원가입 실패');
+      ScaffoldMessenger.of(context).showSnackBar(
+        dogSnackBar(
+          '회원가입이 실패!',
+          backgroundColor: Color(0xFFFB6066),
+        ),
+      );
     }
   }
 

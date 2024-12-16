@@ -8,10 +8,10 @@ class HomeBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final currentIndex = ref.watch(homeViewModel);
+        final state = ref.watch(homeViewModel);
         final viewModel = ref.read(homeViewModel.notifier);
         return BottomNavigationBar(
-          currentIndex: currentIndex,
+          currentIndex: state.currentIndex,
           onTap: viewModel.onIndexChanged,
           iconSize: 28,
           selectedLabelStyle: TextStyle(

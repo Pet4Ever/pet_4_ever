@@ -43,6 +43,8 @@ dependencies:
   auto_size_text: ^3.0.0
   firebase_auth: ^5.3.4
   flutter_svg: ^2.0.16
+  dio: ^5.7.0
+  google_maps_flutter: ^2.10.0
 
 dev_dependencies:
   flutter_test:
