@@ -16,7 +16,9 @@ class GeolocatorHelper {
     }
 
     final LocationSettings locationSettings = LocationSettings(
+      // 위치정확도
       accuracy: LocationAccuracy.high,
+      // 업데이트에 필요한 이동거리(미터 단위)
       distanceFilter: 100,
     );
 

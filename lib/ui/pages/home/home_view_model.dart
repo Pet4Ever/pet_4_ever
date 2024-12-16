@@ -22,6 +22,7 @@ class HomeViewModel extends AutoDisposeNotifier<Homestate> {
   }
 
   Future<void> getAddress(double lat, double lng) async {
+    print("주소가 변경되었어요!!");
     final vworldRepo = VworldRepository();
     final result = await vworldRepo.findByLatLng(lat, lng);
     final newAddress = result.first;
