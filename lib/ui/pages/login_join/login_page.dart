@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_4_ever/ui/pages/friends/friends_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
 import 'package:pet_4_ever/ui/widgets/logo_text.dart';
@@ -29,16 +30,37 @@ class _LoginPageState extends State<LoginPage> {
   void onLoginClick() async {
     if (formKey.currentState?.validate() ?? false) {
       try {
-        userCredential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
+        // Firebase 로그인 시도
+        userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text,
           password: pwController.text,
         );
+
+        // 로그인 성공시 동물친구들 페이지로 이동
+        if (userCredential?.user != null) {
+          // 뒤로가기를 눌렀을때 다시 로그인 페이지로 가지 못하도록
+          // Navigator.pushReplacement 해줌
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => FriendsPage()),
+          );
+        }
       } on FirebaseAuthException catch (e) {
+        // 로그인 실패시
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('존재하지 않는 이메일입니다. 다시 시도해주세요'),
+            ),
+          );
         } else if (e.code == 'wrong-password') {
           print('Wrong password provided for that user.');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('비밀번호가 잘못되었습니다. 다시 시도해주세요'),
+            ),
+          );
         }
       }
     }
@@ -109,4 +131,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
