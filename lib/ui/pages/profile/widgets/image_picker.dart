@@ -19,12 +19,12 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   final ImagePicker picker = ImagePicker();
 
   Future<void> _getImage() async {
-    final XFile? pickedFile = //갤러링에서 이미지 가져오기
+    final XFile? pickedFile = //갤러리에서 이미지 가져오기
         await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
-        image = File(pickedFile.path); //이미지를 File 형태로 저장
+        image = File(pickedFile.path); // 이미지를 File 형태로 저장
       });
       widget.onImageSelected(image!); // 이미지를 부모 위젯에 전달
     }
