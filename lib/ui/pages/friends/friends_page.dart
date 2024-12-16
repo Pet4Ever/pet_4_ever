@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_4_ever/constant.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
 import 'package:pet_4_ever/ui/pages/friends/friends_view_model.dart';
@@ -21,8 +22,7 @@ class FriendsPage extends ConsumerWidget {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/background.jpg"),
-                fit: BoxFit.cover)),
+                image: AssetImage(BACKGROUND_IMAGE_URL), fit: BoxFit.cover)),
         child: friends.isEmpty
             ? Center(child: Text('친구가 없어요.'))
             : GridView.builder(
