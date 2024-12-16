@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatefulWidget {
+  LatLng latLng;
+  MapPage(this.latLng);
+
   @override
   State<MapPage> createState() => _MapPageState();
 }
@@ -9,31 +13,37 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(-33.86, 151.20);
-
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+  }
+
+  List<Marker> _markers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _markers.add(
+      Marker(
+        markerId: MarkerId("1"),
+        draggable: true,
+        onTap: () => print("Marker!"),
+        position: LatLng(widget.latLng.latitude, widget.latLng.longitude),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     print("지도 빌드됨");
+
     return Scaffold(
+      appBar: AppBar(),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.0,
+          target: LatLng(widget.latLng.latitude, widget.latLng.longitude),
+          zoom: 16.0,
         ),
-        markers: {
-          const Marker(
-            markerId: const MarkerId("Sydney"),
-            position: LatLng(-33.86, 151.20),
-            infoWindow: InfoWindow(
-              title: "Sydney",
-              snippet: "Capital of New South Wales",
-            ),
-          ),
-        },
+        markers: Set.from(_markers),
       ),
     );
   }
