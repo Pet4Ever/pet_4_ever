@@ -24,7 +24,7 @@ class MyPageViewModel extends Notifier<List<Pet>> {
     state = state.map(
       (pet) {
         if (pet.name == name) {
-          return pet.copyWith(currentState: !(pet.currentState ?? false));
+          return pet.copyWith(visibility: !(pet.visibility ?? false));
         }
         return pet;
       },

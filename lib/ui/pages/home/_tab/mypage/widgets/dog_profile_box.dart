@@ -71,7 +71,7 @@ class DogProfileBox extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.center,
                     child: Icon(CupertinoIcons.checkmark_alt_circle,
-                        color: pet.currentState! ? Colors.green : Colors.white
+                        color: pet.visibility! ? Colors.green : Colors.white
                         //color: Colors.white,
                         ),
                   ),
