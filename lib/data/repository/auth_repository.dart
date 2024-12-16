@@ -28,7 +28,7 @@ class AuthRepository {
         await docRef.set({
           'name': name,
           'email': user.email,
-          'uid': user.uid,
+          // 'uid': user.uid,
         });
       }
     } on FirebaseAuthException catch (e) {
