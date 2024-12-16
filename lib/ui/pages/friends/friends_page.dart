@@ -14,8 +14,7 @@ class FriendsPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child:
-              SvgPicture.asset("assets/images/mainLogo.svg", fit: BoxFit.cover),
+          child: SvgPicture.asset("assets/images/mainLogo.svg"),
         ),
       ),
       // TODO: consumer로 감싸서 구독

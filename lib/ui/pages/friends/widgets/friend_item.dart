@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
+import 'package:pet_4_ever/ui/pages/friends/widgets/pet_image.dart';
 
 class FriendItem extends StatelessWidget {
   final Pet pet; // Pet 객체를 받도록 수정
@@ -25,13 +26,41 @@ class FriendItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.lightYellow,
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(30),
                 width: double.infinity,
                 height: 300,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(pet.name),
-                    Text(pet.species!),
+                    pet != null
+                        ? Row(
+                            // 사진, (이름&설명), 챗 버튼
+                            children: [
+                              Container(
+                                width: 100,
+                                child: PetImage(
+                                  pet: pet,
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(pet.name),
+                                  SizedBox(height: 10),
+                                  Text(
+                                      "${pet.species}/${pet.size}/${pet.age}/${pet.gender}")
+                                ],
+                              )
+                            ],
+                          )
+                        : Text('동물 친구들 데이터가 없습니다.'),
+                    SizedBox(height: 20),
+                    Text(
+                      pet.special_notes!,
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ],
                 ),
               );
@@ -46,23 +75,9 @@ class FriendItem extends StatelessWidget {
           child: Column(
             children: [
               // 강쥐 사진
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  width: 115,
-                  height: 92,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: (pet.imageUrl?.isNotEmpty ?? false)
-                            ? NetworkImage(pet.imageUrl!)
-                            : AssetImage(
-                                "assets/images/Rogo.png"), // TODO: default 강아지 아이콘 정의 필요
-                        fit: BoxFit.cover),
-                  ),
-                ),
-              ),
+              PetImage(pet: pet),
               // 텍스트
-              SizedBox(height: 10),
+              SizedBox(height: 13),
               Expanded(
                 child: Container(
                   child: Column(
