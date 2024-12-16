@@ -18,50 +18,50 @@ class FriendItem extends StatelessWidget {
         // bottom sheet 호출
         showModalBottomSheet(
             context: context,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            ),
             builder: (context) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: AppColors.lightYellow,
-                ),
-                padding: EdgeInsets.all(30),
-                width: double.infinity,
-                height: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    pet != null
-                        ? Row(
-                            // 사진, (이름&설명), 챗 버튼
-                            children: [
-                              Container(
-                                width: 100,
-                                child: PetImage(
-                                  pet: pet,
-                                  borderRadius: BorderRadius.circular(40),
+              return ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.lightYellow,
+                  ),
+                  padding: EdgeInsets.all(30),
+                  width: double.infinity,
+                  height: 300,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      pet != null
+                          ? Row(
+                              // 사진, (이름&설명), 챗 버튼
+                              children: [
+                                Container(
+                                  width: 100,
+                                  child: PetImage(
+                                    pet: pet,
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(pet.name),
-                                  SizedBox(height: 10),
-                                  Text(
-                                      "${pet.species}/${pet.size}/${pet.age}/${pet.gender}")
-                                ],
-                              )
-                            ],
-                          )
-                        : Text('동물 친구들 데이터가 없습니다.'),
-                    SizedBox(height: 20),
-                    Text(
-                      pet.special_notes!,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
+                                SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(pet.name),
+                                    SizedBox(height: 10),
+                                    Text(
+                                        "${pet.species}/${pet.size}/${pet.age}/${pet.gender}")
+                                  ],
+                                )
+                              ],
+                            )
+                          : Text('동물 친구들 데이터가 없습니다.'),
+                      SizedBox(height: 20),
+                      Text(
+                        pet.special_notes!,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
                 ),
               );
             });
@@ -75,11 +75,14 @@ class FriendItem extends StatelessWidget {
           child: Column(
             children: [
               // 강쥐 사진
-              PetImage(pet: pet),
+              PetImage(
+                pet: pet,
+              ),
               // 텍스트
               SizedBox(height: 13),
               Expanded(
                 child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
                   child: Column(
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
