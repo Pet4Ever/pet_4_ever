@@ -22,6 +22,12 @@ class UserModel {
       name: firebaseUser.displayName ?? '',
     );
   }
+  UserModel.fromJson(Map<String, dynamic> map)
+      : this(
+          uid: map['uid'],
+          email: map['email'],
+          name: map['name'],
+        );
 
   Map<String, dynamic> toJson() {
     return {

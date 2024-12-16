@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet_4_ever/data/repository/my_page_repository.dart';
+import 'package:pet_4_ever/ui/pages/mypage/my_page_view_model.dart';
+import 'package:pet_4_ever/user_data.dart';
 import 'package:pet_4_ever/ui/pages/mypage/widgets/add_profile_box.dart';
 import 'package:pet_4_ever/ui/pages/mypage/widgets/dog_profile_box.dart';
 
@@ -23,7 +24,7 @@ class DogGridViewBox extends StatelessWidget {
                 mainAxisSpacing: 10),
             itemBuilder: (context, index) {
               //등록된 반려견 없을 때
-              if (state.isEmpty) {
+              if (state.isEmpty || userData.isEmpty) {
                 return AddProfileBox();
               }
               //인덱스의 마지막 요소라면 프로필 등록 버튼 추가

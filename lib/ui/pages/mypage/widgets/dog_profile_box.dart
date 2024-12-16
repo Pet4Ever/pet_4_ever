@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
-import 'package:pet_4_ever/data/repository/my_page_repository.dart';
+import 'package:pet_4_ever/theme.dart';
+import 'package:pet_4_ever/ui/pages/mypage/my_page_view_model.dart';
 
 //반려견 프로필
 
@@ -92,7 +93,7 @@ class DogProfileBox extends StatelessWidget {
             height: 300,
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: Colors.white, // 모달 배경색
+              color: AppColors.lightYellow, // 모달 배경색
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
@@ -104,10 +105,21 @@ class DogProfileBox extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      '내 강아지 정보',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 4,),
                   Text(
-                    '${pet.name}',
+                    '이름: ${pet.name}',
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

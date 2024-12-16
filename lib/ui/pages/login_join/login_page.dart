@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/ui/pages/friends/friends_page.dart';
+import 'package:pet_4_ever/ui/pages/home/home_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
+import 'package:pet_4_ever/user_data.dart';
 import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
 
@@ -40,9 +42,10 @@ class _LoginPageState extends State<LoginPage> {
         if (userCredential?.user != null) {
           // 뒤로가기를 눌렀을때 다시 로그인 페이지로 가지 못하도록
           // Navigator.pushReplacement 해줌
+          userData.insert(0, userCredential?.user);
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => FriendsPage()),
+            MaterialPageRoute(builder: (context) => HomePage()),
           );
         }
       } on FirebaseAuthException catch (e) {
