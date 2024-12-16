@@ -25,9 +25,11 @@ class _MapPageState extends State<MapPage> {
     _markers.add(
       Marker(
         markerId: MarkerId("1"),
-        draggable: true,
-        onTap: () => print("Marker!"),
         position: LatLng(widget.latLng.latitude, widget.latLng.longitude),
+        infoWindow: InfoWindow(
+          title: "1",
+          snippet: "snippet",
+        ),
       ),
     );
   }
