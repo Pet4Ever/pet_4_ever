@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_4_ever/constant.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
 import 'package:pet_4_ever/ui/pages/friends/friends_view_model.dart';
@@ -18,26 +19,50 @@ class FriendsPage extends ConsumerWidget {
         ),
       ),
       // TODO: consumer로 감싸서 구독
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/background.jpg"),
-                fit: BoxFit.cover)),
-        child: friends.isEmpty
-            ? Center(child: Text('친구가 없어요.'))
-            : GridView.builder(
-                padding: EdgeInsets.all(20),
-                itemCount: friends.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 3 / 4, // 가로/세로 가로:세로
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 20,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            // 배경
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(BACKGROUND_IMAGE_URL),
+                  fit: BoxFit.cover,
                 ),
-                itemBuilder: (context, index) {
-                  final pet = friends[index];
-                  return FriendItem(pet: pet);
-                }),
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text('위치'),
+                ),
+                SizedBox(height: 5),
+                Expanded(
+                  child: friends.isEmpty
+                      ? Center(child: Text('친구가 없어요.'))
+                      : GridView.builder(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          itemCount: friends.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio: 3 / 4, // 가로/세로 가로:세로
+                            crossAxisSpacing: 15,
+                            mainAxisSpacing: 20,
+                          ),
+                          itemBuilder: (context, index) {
+                            final pet = friends[index];
+                            return FriendItem(pet: pet);
+                          }),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

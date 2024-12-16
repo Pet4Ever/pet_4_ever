@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_4_ever/constant.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 
 class PetImage extends StatelessWidget {
@@ -27,8 +28,7 @@ class PetImage extends StatelessWidget {
           image: DecorationImage(
               image: (pet.imageUrl?.isNotEmpty ?? false)
                   ? NetworkImage(pet.imageUrl!)
-                  : AssetImage(
-                      "assets/images/Rogo.png"), // TODO: default 강아지 아이콘 정의 필요
+                  : AssetImage(DEFAULT_PET),
               fit: BoxFit.cover),
         ),
       ),

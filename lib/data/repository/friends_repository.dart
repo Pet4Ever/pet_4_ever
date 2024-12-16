@@ -12,17 +12,21 @@ class FriendsRepository {
       final collectionRef = firestore.collection('pet');
       final result = await collectionRef.get();
       final docs = result.docs;
-      return docs.map(
-        (doc) {
-          final map = doc.data();
-          doc.id;
-          final newMap = {'id': doc.id, ...map};
-          return Pet.fromJson(newMap);
-        },
-      ).toList();
+
+      if (docs.isEmpty) {
+        print('Firestore에 데이터가 없음.');
+        return [];
+      }
+
+      final pets = docs.map((doc) {
+        final map = doc.data();
+        final newMap = {'id': doc.id, ...map};
+        return Pet.fromJson(newMap);
+      }).toList();
+      return pets;
     } catch (e) {
-      print('getAll에러: $e');
-      return null;
+      print('Firestore getAll에러: $e');
+      return [];
     }
   }
 
