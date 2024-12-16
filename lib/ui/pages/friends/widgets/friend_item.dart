@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
+import 'package:pet_4_ever/ui/pages/chat/chat_list_page.dart';
 import 'package:pet_4_ever/ui/pages/friends/widgets/pet_image.dart';
 
 class FriendItem extends StatelessWidget {
@@ -37,6 +38,7 @@ class FriendItem extends StatelessWidget {
                               children: [
                                 Container(
                                   width: 100,
+                                  height: 100,
                                   child: PetImage(
                                     pet: pet,
                                     borderRadius: BorderRadius.circular(40),
@@ -49,9 +51,19 @@ class FriendItem extends StatelessWidget {
                                     Text(pet.name),
                                     SizedBox(height: 10),
                                     Text(
-                                        "${pet.species}/${pet.size}/${pet.age}/${pet.gender}")
+                                        "${pet.species} / ${pet.size} / ${pet.age} / ${pet.gender}")
                                   ],
-                                )
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ChatListPage(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text('발바닥'))
                               ],
                             )
                           : Text('동물 친구들 데이터가 없습니다.'),
@@ -66,41 +78,48 @@ class FriendItem extends StatelessWidget {
               );
             });
       },
-      child: Container(
-          width: 115,
-          height: 145,
-          decoration: BoxDecoration(
-              color: Theme.of(context).highlightColor,
-              borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            children: [
-              // 강쥐 사진
-              PetImage(
-                pet: pet,
-              ),
-              // 텍스트
-              SizedBox(height: 13),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Column(
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        pet.name,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ), // TODO: name
-                      Text(
-                        pet.special_notes ?? "냉 무",
-                        overflow: TextOverflow.ellipsis,
-                      ), // TODO: special_note, default 문구
-                    ],
+      child: LayoutBuilder(builder: (context, constraints) {
+        final itemWidth = constraints.maxWidth / 3 - 20;
+        final itemHeight = itemWidth * 4 / 3; // 3:4 ratio
+
+        return Container(
+            width: itemWidth,
+            height: itemHeight,
+            decoration: BoxDecoration(
+                color: Theme.of(context).highlightColor,
+                borderRadius: BorderRadius.circular(20)),
+            child: Column(
+              children: [
+                // 강쥐 사진
+                PetImage(
+                  pet: pet,
+                  width: double.infinity,
+                  height: 100,
+                ),
+                // 텍스트
+                SizedBox(height: 13),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
+                      //crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          pet.name,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ), // TODO: name
+                        Text(
+                          pet.special_notes ?? "반가워요!",
+                          overflow: TextOverflow.ellipsis,
+                        ), // TODO: special_note, default 문구
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            ));
+      }),
     );
   }
 }
