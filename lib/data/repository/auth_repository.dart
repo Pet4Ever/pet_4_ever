@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pet_4_ever/data/model/user_model.dart';
+import 'package:pet_4_ever/user_data.dart';
 
 class AuthRepository {
   final FirebaseAuth firebaseAuth;
@@ -53,6 +55,10 @@ class AuthRepository {
         email: email,
         password: password,
       );
+      //유저 정보 저장
+      final user = userCredential.user;
+      UserData().currentUser = user;
+
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       String errorMessage;
