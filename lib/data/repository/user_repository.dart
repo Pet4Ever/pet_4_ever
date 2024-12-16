@@ -20,7 +20,8 @@ class UserRepository {
       };
       return UserModel.fromJson(map); // UserModel 객체 반환
     } else {
-      throw Exception('No user found with uid: $userId'); // 결과가 없을 때 예외 처리
+      // throw Exception('No user found with uid: $userId'); // 결과가 없을 때 예외 처리
+      return UserModel(id: 'id', email: 'email', name: 'name');
     }
   }
 }

@@ -39,7 +39,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               pwController.text,
             );
 
-        userData.insert(0, userCredential?.user);
+        // userData.insert(0, userCredential?.user);
+        userData.insert(0, ref.watch(authViewModelProvider));
+        print(userData);
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),

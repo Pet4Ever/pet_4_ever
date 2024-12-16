@@ -24,7 +24,7 @@ class UserModel {
   }
   UserModel.fromJson(Map<String, dynamic> map)
       : this(
-          uid: map['uid'],
+          id: map['id'],
           email: map['email'],
           name: map['name'],
         );
