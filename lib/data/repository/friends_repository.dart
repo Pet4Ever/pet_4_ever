@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
+import 'package:pet_4_ever/data/model/user_model.dart';
 
 class FriendsRepository {
-  Future<List<Pet>?> getAll() async {
+  final firestore = FirebaseFirestore.instance;
+
+  Future<List<Pet>?> getFilteredPetsByAddress(String userAddress) async {
     try {
-      final firestore = FirebaseFirestore.instance;
       final collectionRef = firestore.collection('pet');
       final result = await collectionRef.get();
       final docs = result.docs;
@@ -17,14 +19,33 @@ class FriendsRepository {
         return [];
       }
 
-      final pets = docs.map((doc) {
-        final map = doc.data();
-        final newMap = {'id': doc.id, ...map};
-        return Pet.fromJson(newMap);
-      }).toList();
-      return pets;
+      final filteredPets = <Pet>[];
+
+      for (final doc in docs) {
+        final petData = doc.data();
+        final ownerId = petData['owner_id'] as String;
+        if (ownerId != null) {
+          final userDoc = await firestore.collection('user').doc(ownerId).get();
+          if (userDoc.exists) {
+            final user =
+                UserModel.fromJson({'id': userDoc.id, ...userDoc.data()!});
+            if (user.address == userAddress) {
+              final pet = Pet.fromJson({'id': doc.id, ...petData});
+              filteredPets.add(pet);
+            }
+          }
+        }
+      }
+      return filteredPets;
+
+      // final pets = docs.map((doc) {
+      //   final map = doc.data();
+      //   final newMap = {'id': doc.id, ...map};
+      //   return Pet.fromJson(newMap);
+      // }).toList();
+      // return pets;
     } catch (e) {
-      print('Firestore getAll에러: $e');
+      print('getFilteredPetsByAddress에러: $e');
       return [];
     }
   }
