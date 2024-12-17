@@ -49,7 +49,7 @@ class FriendItem extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(pet.name),
-                                    SizedBox(height: 10),
+                                    //SizedBox(height: 10),
                                     Text(
                                         "${pet.species} / ${pet.size} / ${pet.age} / ${pet.gender}")
                                   ],
@@ -63,7 +63,7 @@ class FriendItem extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                    child: Text('발바닥'))
+                                    child: Text('발바닥')) // TODO: 채팅 넘어가는 버튼 추가
                               ],
                             )
                           : Text('동물 친구들 데이터가 없습니다.'),
@@ -88,16 +88,17 @@ class FriendItem extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Theme.of(context).highlightColor,
                 borderRadius: BorderRadius.circular(20)),
+            // 그리드
             child: Column(
               children: [
                 // 강쥐 사진
                 PetImage(
                   pet: pet,
                   width: double.infinity,
-                  height: 100,
+                  height: 90,
                 ),
                 // 텍스트
-                SizedBox(height: 13),
+                SizedBox(height: 3),
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 5),
