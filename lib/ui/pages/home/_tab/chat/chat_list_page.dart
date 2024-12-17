@@ -76,9 +76,8 @@ class ChatListPage extends StatelessWidget {
             SizedBox.square(
               dimension: 55,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: PetImage(pet: item.pet!)
-              ),
+                  borderRadius: BorderRadius.circular(30),
+                  child: PetImage(pet: item.pet!)),
             ),
             SizedBox(width: 10),
             Column(
@@ -93,7 +92,7 @@ class ChatListPage extends StatelessWidget {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      "두암동 * 4일 전",
+                      "두암동 * ${item.recentMessage?.createdAtDiff ?? ''}",
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey,

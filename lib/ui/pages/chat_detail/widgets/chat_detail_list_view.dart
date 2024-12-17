@@ -82,7 +82,7 @@ class ChatDetailListView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            "오후 12:24",
+            item.createdAtStr,
             style: TextStyle(
               color: Colors.black38,
               fontSize: 12,
@@ -116,7 +116,7 @@ class ChatDetailListView extends StatelessWidget {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "오후 12:24",
+                  item.createdAtStr,
                   style: TextStyle(
                     color: Colors.black38,
                     fontSize: 12,
