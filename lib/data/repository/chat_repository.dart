@@ -24,30 +24,34 @@ class ChatRepository {
     });
   }
 
-  static Future<Chat?> findChat(String pet_id) async {
+  Future<Chat?> findChat(String pet_id, String user_id) async {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('chat');
     final query = collectionRef
-        .where('pet_id', isEqualTo: pet_id);
-        // .where('users', arrayContains: currentUser!.id);
+        .where('pet_id', isEqualTo: pet_id)
+        .where('users', arrayContains: user_id);
+        // .where('users', arrayContains: UserData().currentUser!.uid);
 
     final result = await query.get();
     final docs = result.docs;
 
     if (docs.length > 0) {
-      return docs.map((doc) {
-        return Chat.fromJson({
-          'id': doc.id,
-          ...doc.data(),
-        });
-      }).toList().first;
+      return docs
+          .map((doc) {
+            return Chat.fromJson({
+              'id': doc.id,
+              ...doc.data(),
+            });
+          })
+          .toList()
+          .first;
     } else {
-      
+      return null;
     }
   }
 
   // CREATE
-  Future<bool> createChat({
+  Future<Chat?> createAndReturnChat({
     required String pet_id,
     required List<String> users,
   }) async {
@@ -61,10 +65,19 @@ class ChatRepository {
         'users': users,
       });
 
-      return true;
+      final docSnapshot = await docRef.get();
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data();
+        return Chat.fromJson({
+          'id': docRef.id,
+          ...data!,
+        });
+      }
+
+      return null;
     } catch (e) {
       print(e);
-      return false;
+      return null;
     }
   }
 
