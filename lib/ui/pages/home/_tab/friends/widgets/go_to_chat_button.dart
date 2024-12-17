@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
-import 'package:pet_4_ever/data/repository/chat_repository.dart';
-import 'package:pet_4_ever/ui/pages/chat_detail/chat_detail_page.dart';
-import 'package:pet_4_ever/user_data.dart';
 
 class GoToChatButton extends StatelessWidget {
   Pet pet;

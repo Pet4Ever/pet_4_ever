@@ -4,12 +4,9 @@ import 'package:pet_4_ever/ui/pages/home/home_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/auth_view_model.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
-import 'package:pet_4_ever/ui/widgets/logo_text.dart';
-import 'package:pet_4_ever/ui/pages/login_join/auth_view_model.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
 import 'package:pet_4_ever/ui/widgets/dog_snack_bar.dart';
 import 'package:pet_4_ever/ui/widgets/logo_text.dart';
-import 'package:pet_4_ever/user_data.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   @override
