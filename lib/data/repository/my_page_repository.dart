@@ -7,10 +7,9 @@ class MyPageRepository {
   Future<List<Pet>> getById(String userId) async {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('pet');
-    
+
     //유저 아이디로 펫 정보 가져오기
-    final query =
-        collectionRef.where('owner_id', isEqualTo: userId);
+    final query = collectionRef.where('owner_id', isEqualTo: userId);
     final result = await query.get();
 
     //테스트를 위해 전체 펫 정보 가져옴
@@ -29,6 +28,7 @@ class MyPageRepository {
     return petList;
   }
 
+  //스트림으로 관리하기
   Stream<List<Pet>> getPetStreamById(String userId) {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('pet');
@@ -43,7 +43,4 @@ class MyPageRepository {
       }).toList();
     });
   }
-
-
 }
-

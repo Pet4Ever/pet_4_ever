@@ -60,7 +60,9 @@ class DogProfileBox extends StatelessWidget {
             //반려견 상태 활성화/비활성화 버튼
             GestureDetector(
               onTap: () {
-                ref.read(myPageViewModel.notifier).toggleOnoff(pet.name!);
+                ref
+                    .read(myPageViewModel.notifier)
+                    .updateVisibility(pet.name!, pet.visibility!);
               },
               child: Align(
                 alignment: Alignment.topRight,
@@ -115,9 +117,11 @@ class DogProfileBox extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 4,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
-                    '이름: ${pet.name}',
+                    '이름: ${pet.name} ',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -125,17 +129,22 @@ class DogProfileBox extends StatelessWidget {
                   ),
                   Text('나이: ${pet.age} 살',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       )),
                   Text('종: ${pet.species}',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       )),
                   Text('크기: ${pet.size}',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  Text('한마디: ${pet.special_notes}',
+                      style: TextStyle(
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       )),
                 ],
