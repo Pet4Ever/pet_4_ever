@@ -28,7 +28,7 @@ class MyPageRepository {
     final petList = iterable.toList();
     return petList;
   }
-
+  //스트림으로 관리하기
   Stream<List<Pet>> getPetStreamById(String userId) {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('pet');
