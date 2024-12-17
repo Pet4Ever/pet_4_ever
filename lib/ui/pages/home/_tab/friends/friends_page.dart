@@ -9,8 +9,11 @@ import 'package:pet_4_ever/ui/pages/home/_tab/mypage/user_data_view_model.dart';
 class FriendsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final friends = ref.watch(friendViewModelProvider);
+    //final friends = ref.watch(friendViewModelProvider);
     final user = ref.watch(userDataViewModel);
+    final friendsNotifier = ref.read(friendViewModelProvider.notifier);
+    friendsNotifier.getAllPets(user.address);
+    final friends = ref.watch(friendViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(

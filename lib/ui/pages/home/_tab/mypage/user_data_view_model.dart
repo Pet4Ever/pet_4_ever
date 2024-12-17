@@ -7,19 +7,21 @@ import 'package:pet_4_ever/data/model/user_model.dart';
 import 'package:pet_4_ever/data/repository/user_repository.dart';
 
 class UserDataViewModel extends Notifier<UserModel> {
-
-
   final userRepository = UserRepository();
+
+  @override
+  UserModel build() {
+    return UserModel(id: '', email: '', name: '', address: '');
+  }
 
   //사용자 데이터 가져오기
   Future<void> getUserData(String userId) async {
-    state = await userRepository.getByUid(userId);
-  }
-  
-  @override
-  UserModel build() {
-    // TODO: implement build
-    throw UnimplementedError();
+    try {
+      final userData = await userRepository.getByUid(userId);
+      state = userData;
+    } catch (e) {
+      print('사용자 데이터 불러오기 실패: $e');
+    }
   }
 }
 
