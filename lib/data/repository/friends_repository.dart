@@ -10,33 +10,61 @@ class FriendsRepository {
 
   Future<List<Pet>?> getFilteredPetsByAddress(String userAddress) async {
     try {
-      final collectionRef = firestore.collection('pet');
-      final result = await collectionRef.get();
+      final userCollectionRef =
+          firestore.collection('user').where('address', isEqualTo: userAddress);
+      final userResult = await userCollectionRef.get();
+      final userDocs = userResult.docs;
+
+      final userIds = userDocs.map(
+        (doc) {
+          return doc.id;
+        },
+      ).toList();
+
+      final petCollectionRef = firestore
+          .collection('pet')
+          .where('visibility', isEqualTo: true)
+          .where('owner_id', whereIn: userIds);
+      final result = await petCollectionRef.get();
       final docs = result.docs;
 
-      if (docs.isEmpty) {
-        print('Firestore에 데이터가 없음.');
-        return [];
-      }
+      final pets = docs.map((doc) {
+        final map = doc.data();
+        final newMap = {
+          'id': doc.id,
+          ...map,
+        };
+        return Pet.fromJson(newMap);
+      }).toList();
 
-      final filteredPets = <Pet>[];
+      return pets;
+      // final collectionRef = firestore.collection('pet');
+      // final result = await collectionRef.get();
+      // final docs = result.docs;
 
-      for (final doc in docs) {
-        final petData = doc.data();
-        final ownerId = petData['owner_id'] as String;
-        if (ownerId != null) {
-          final userDoc = await firestore.collection('user').doc(ownerId).get();
-          if (userDoc.exists) {
-            final user =
-                UserModel.fromJson({'id': userDoc.id, ...userDoc.data()!});
-            if (user.address == userAddress) {
-              final pet = Pet.fromJson({'id': doc.id, ...petData});
-              filteredPets.add(pet);
-            }
-          }
-        }
-      }
-      return filteredPets;
+      // if (docs.isEmpty) {
+      //   print('Firestore에 데이터가 없음.');
+      //   return [];
+      // }
+
+      // final filteredPets = <Pet>[];
+
+      // for (final doc in docs) {
+      //   final petData = doc.data();
+      //   final ownerId = petData['owner_id'] as String;
+      //   if (ownerId != null) {
+      //     final userDoc = await firestore.collection('user').doc(ownerId).get();
+      //     if (userDoc.exists) {
+      //       final user =
+      //           UserModel.fromJson({'id': userDoc.id, ...userDoc.data()!});
+      //       if (user.address == userAddress) {
+      //         final pet = Pet.fromJson({'id': doc.id, ...petData});
+      //         filteredPets.add(pet);
+      //       }
+      //     }
+      //   }
+      // }
+      // return filteredPets;
 
       // final pets = docs.map((doc) {
       //   final map = doc.data();
