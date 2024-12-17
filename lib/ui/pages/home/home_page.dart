@@ -30,7 +30,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(homeViewModel);
-    print("지금 주소는!! ${state.address}");
+    //print("지금 주소는!! ${state.address}");
     return Scaffold(
       body: IndexedStack(
         index: state.currentIndex,
