@@ -7,7 +7,6 @@ import 'package:pet_4_ever/theme.dart';
 import 'package:pet_4_ever/ui/pages/login_join/login_page.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
