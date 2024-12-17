@@ -35,8 +35,8 @@ class _HomePageState extends ConsumerState<HomePage> {
       body: IndexedStack(
         index: state.currentIndex,
         children: [
-          FriendsPage(),
           ChatListPage(),
+          FriendsPage(),
           Mypage(),
         ],
       ),

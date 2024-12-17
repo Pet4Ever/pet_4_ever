@@ -3,12 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/message_view_model.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/widgets/chat_detail_list_view.dart';
+import 'package:pet_4_ever/user_data.dart';
 
 final OWNER_NAME = "찡찡이 엄마";
 final SAMPLE_IMAGE_URL = "https://picsum.photos/200/300";
-final SAMPLE_PET_NAME = "찰리(3)";
-final SAMPLE_PET_MESSAGE = "나는 금발이 좋아!";
-final CHAT_ID = '9ZTt8T2lBhaTbxMmg4YB';
 
 class ChatDetailPage extends StatelessWidget {
   Chat chat;
@@ -65,7 +63,7 @@ class ChatDetailPage extends StatelessWidget {
                   final vm = ref.read(messageViewModel(chat).notifier);
                   final sendResult = await vm.sendMessage(
                     chat_id: chat.id,
-                    sender_id: MY_ID,
+                    sender_id: UserData().currentUser!.uid,
                     message: messageController.text,
                   );
 
@@ -102,7 +100,7 @@ class ChatDetailPage extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Text(
-            SAMPLE_PET_NAME,
+            chat.pet.name,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -110,7 +108,7 @@ class ChatDetailPage extends StatelessWidget {
           ),
           SizedBox(width: 5),
           Text(
-            ": $SAMPLE_PET_MESSAGE",
+            ": ${chat.pet?.special_notes ?? ''}",
             style: TextStyle(
               fontSize: 16,
             ),

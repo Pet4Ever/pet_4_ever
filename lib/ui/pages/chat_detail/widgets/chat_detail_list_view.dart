@@ -5,9 +5,7 @@ import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/data/model/message.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/chat_detail_page.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/message_view_model.dart';
-
-final SAMPLE_MESSAGE = "샘ㅁ플 메세지 입니다";
-final MY_ID = "사용자1";
+import 'package:pet_4_ever/user_data.dart';
 
 class ChatDetailListView extends StatelessWidget {
   Chat chat;
@@ -55,7 +53,7 @@ class ChatDetailListView extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final item = messages[index];
               
-                  if (item.sender_id == MY_ID) {
+                  if (item.sender_id == UserData().currentUser!.uid) {
                     isFirst = true;
                     return sentMessage(item);
                   } else {

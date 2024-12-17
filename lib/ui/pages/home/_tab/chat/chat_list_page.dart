@@ -28,22 +28,22 @@ class ChatListPage extends StatelessWidget {
           builder: (context, ref, child) {
             final chats = ref.watch(chatViewModel);
             return ListView.separated(
-              itemCount: chats.length + 1,
+              itemCount: chats.length,
               separatorBuilder: (context, index) => SizedBox(height: 12),
               itemBuilder: (context, index) {
-                if (index == chats.length) {
-                  return IconButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          final latLng = ref.watch(homeViewModel).latLng;
-                          return MapPage(latLng);
-                        },
-                      ));
-                    },
-                    icon: Icon(Icons.map),
-                  );
-                }
+                // if (index == chats.length) {
+                //   return IconButton(
+                //     onPressed: () {
+                //       Navigator.push(context, MaterialPageRoute(
+                //         builder: (context) {
+                //           final latLng = ref.watch(homeViewModel).latLng;
+                //           return MapPage(latLng);
+                //         },
+                //       ));
+                //     },
+                //     icon: Icon(Icons.map),
+                //   );
+                // }
                 var item = chats[index];
                 return chatListItem(context, item);
               },
@@ -89,7 +89,7 @@ class ChatListPage extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      SAMPLE_PET_NAME,
+                      item.pet_id,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
@@ -103,7 +103,7 @@ class ChatListPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text(SAMPLE_MESSAGE),
+                Text(item.recentMessage?.message ?? ""),
               ],
             )
           ],

@@ -1,48 +1,90 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
-
-String userId = "샘플유저아이디";
+import 'package:pet_4_ever/data/model/message.dart';
+import 'package:pet_4_ever/data/model/pet.dart';
+import 'package:pet_4_ever/user_data.dart';
 
 class ChatRepository {
   ChatRepository();
 
-  // Future<List<Chat>?> getChatList() async {
-  //   try {
-  //     FirebaseFirestore firestore = FirebaseFirestore.instance;
-  //     final collectionRef = firestore.collection('chat');
-  //     // .where("users", arrayContains: userId);
-  //     final result = await collectionRef.get();
-  //     final docs = result.docs;
-
-  //     return docs.map((doc) {
-  //       final map = {
-  //         'id': doc.id,
-  //         ...doc.data(),
-  //       };
-  //       return Chat.fromJson(map);
-  //     }).toList();
-  //   } catch (e) {
-  //     print("e :: $e");
-  //     return null;
-  //   }
-  // }
   Stream<List<Chat>> chatListStream() {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('chat');
-    final stream = collectionRef.snapshots();
+    final stream = collectionRef
+        .where('users', arrayContains: UserData().currentUser!.uid)
+        .snapshots();
 
-    return stream.map((event) {
-      return event.docs.map((doc) {
-        return Chat.fromJson({
+    return stream.asyncMap((event) async {
+      final chatList = await Future.wait(event.docs.map((doc) async {
+        final chat = Chat.fromJson({
           'id': doc.id,
           ...doc.data(),
         });
-      }).toList();
+        print(chat);
+
+        // 최근메세지 조회
+        final messageRef = doc.reference
+            .collection('message')
+            .orderBy('createdAt', descending: true)
+            .limit(1);
+        final messageSnapshot = await messageRef.get();
+
+        if (messageSnapshot.docs.isNotEmpty) {
+          chat.recentMessage = Message.fromJson({
+            'id': messageSnapshot.docs.first.id,
+            ...messageSnapshot.docs.first.data(),
+          });
+        }
+
+        // pet 정보 조회
+        // final petRef = firestore.collection('pets').doc(chat.pet_id);
+        // final petSnapshot = await petRef.get();
+        // if (petSnapshot.exists) {
+        //   chat.pet = Pet.fromJson({
+        //     'id': petSnapshot.id,
+        //     ...petSnapshot.data()!,
+        //   });
+        // }
+        //   print("PET!! ${chat.pet}");
+
+        return chat;
+      }).toList());
+
+      print(chatList.length);
+      return chatList;
     });
   }
 
+  Future<Chat?> findChat(String pet_id) async {
+    final firestore = FirebaseFirestore.instance;
+    final collectionRef = firestore.collection('chat');
+    final query = collectionRef
+        .where('pet_id', isEqualTo: pet_id)
+        // .where('users', arrayContains: user_id);
+        .where('users', arrayContains: UserData().currentUser!.uid);
+
+    final result = await query.get();
+    final docs = result.docs;
+
+    if (docs.length > 0) {
+      return docs
+          .map((doc) {
+            return Chat.fromJson({
+              'id': doc.id,
+              ...doc.data(),
+            });
+          })
+          .toList()
+          .first;
+    } else {
+      return null;
+    }
+  }
+
   // CREATE
-  Future<bool> createChat({
+  Future<Chat?> createAndReturnChat({
     required String pet_id,
     required List<String> users,
   }) async {
@@ -56,10 +98,19 @@ class ChatRepository {
         'users': users,
       });
 
-      return true;
+      final docSnapshot = await docRef.get();
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data();
+        return Chat.fromJson({
+          'id': docRef.id,
+          ...data!,
+        });
+      }
+
+      return null;
     } catch (e) {
       print(e);
-      return false;
+      return null;
     }
   }
 
