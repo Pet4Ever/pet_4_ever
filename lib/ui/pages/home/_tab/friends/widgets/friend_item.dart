@@ -57,16 +57,8 @@ class FriendItem extends StatelessWidget {
                                         "${pet.species} / ${pet.size} / ${pet.age} / ${pet.gender}")
                                   ],
                                 ),
-                                // ElevatedButton(
-                                //     onPressed: () {
-                                //       Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //           builder: (context) => ChatListPage(),
-                                //         ),
-                                //       );
-                                //     },
-                                //     child: Text('발바닥')) // TODO: 채팅 넘어가는 버튼 추가
+                                Spacer(),
+                                Text('채팅'), // TODO 채팅 넘어가는 버튼 자리
                               ],
                             )
                           : Text('동물 친구들 데이터가 없습니다.'),
