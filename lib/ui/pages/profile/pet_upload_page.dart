@@ -6,7 +6,8 @@ import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button/dog_age.dart
 import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button/dog_breeds.dart';
 import 'package:pet_4_ever/ui/pages/profile/widgets/selected_button/selected_button.dart';
 import 'package:pet_4_ever/ui/pages/profile/widgets/text_input.dart';
-import 'package:pet_4_ever/ui/pages/profile/upload_button.dart';
+import 'package:pet_4_ever/ui/pages/profile/widgets/upload_button.dart';
+import 'package:pet_4_ever/user_data.dart';
 
 class UploadPetProfile extends StatefulWidget {
   @override
@@ -170,14 +171,15 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
                     formKey2,
                     formKey3,
                     image,
-                    species ?? '시고르자브종',
-                    size ?? '몰라요',
-                    gender ?? '몰라요',
-                    age ?? 0,
+                    species,
+                    size,
+                    gender,
+                    age,
                     nameController.text,
                     oneLineController.text,
                     introductionController.text,
                     clearFields,
+                    UserData().currentUser,
                   ),
                 ],
               ),
