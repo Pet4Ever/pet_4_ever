@@ -18,6 +18,7 @@ class FriendItem extends StatelessWidget {
       onTap: () {
         // bottom sheet 호출
         showModalBottomSheet(
+            //isScrollControlled: true,
             context: context,
             builder: (context) {
               return ClipRRect(
@@ -28,8 +29,10 @@ class FriendItem extends StatelessWidget {
                   ),
                   padding: EdgeInsets.all(30),
                   width: double.infinity,
-                  height: 300,
+                  //
+                  height: MediaQuery.of(context).size.height * 0.4,
                   child: Column(
+                    //mainAxisSize: MainAxisSize.min, // 최소 높이
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       pet != null
@@ -49,28 +52,28 @@ class FriendItem extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(pet.name),
-                                    SizedBox(height: 10),
+                                    //SizedBox(height: 10),
                                     Text(
                                         "${pet.species} / ${pet.size} / ${pet.age} / ${pet.gender}")
                                   ],
                                 ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ChatListPage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Text('발바닥'))
+                                // ElevatedButton(
+                                //     onPressed: () {
+                                //       Navigator.push(
+                                //         context,
+                                //         MaterialPageRoute(
+                                //           builder: (context) => ChatListPage(),
+                                //         ),
+                                //       );
+                                //     },
+                                //     child: Text('발바닥')) // TODO: 채팅 넘어가는 버튼 추가
                               ],
                             )
                           : Text('동물 친구들 데이터가 없습니다.'),
                       SizedBox(height: 20),
                       Text(
                         pet.special_notes!,
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 15),
                       ),
                     ],
                   ),
@@ -88,16 +91,18 @@ class FriendItem extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Theme.of(context).highlightColor,
                 borderRadius: BorderRadius.circular(20)),
+            // 그리드
             child: Column(
+              mainAxisSize: MainAxisSize.min, // 최소 공간만 차지하도록 설정
               children: [
                 // 강쥐 사진
                 PetImage(
                   pet: pet,
                   width: double.infinity,
-                  height: 100,
+                  height: 100, // 비율에 맞춰서 높이 설정
                 ),
                 // 텍스트
-                SizedBox(height: 13),
+                SizedBox(height: 3),
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 5),
@@ -107,10 +112,14 @@ class FriendItem extends StatelessWidget {
                       children: [
                         Text(
                           pet.name,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
                         ), // TODO: name
                         Text(
                           pet.special_notes ?? "반가워요!",
+                          style: TextStyle(fontSize: 10),
                           overflow: TextOverflow.ellipsis,
                         ), // TODO: special_note, default 문구
                       ],
