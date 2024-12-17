@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
-
-
-import 'package:pet_4_ever/ui/pages/home/_tab/chat/chat_list_page.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/go_to_chat_button.dart';
-
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
 
 class FriendItem extends StatelessWidget {
@@ -57,16 +53,33 @@ class FriendItem extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(pet.name),
-                                      //SizedBox(height: 10),
-                                      Text("${pet.species}"),
                                       Text(
-                                          "${pet.size} / ${pet.age} / ${pet.gender}")
+                                        pet.name,
+                                        style: TextStyle(
+                                          fontFamily: 'Cafe24Ssurround-v2.0',
+                                          fontSize: 19,
+                                          letterSpacing: 1,
+                                        ),
+                                      ),
+                                      //SizedBox(height: 10),
+                                      Text(
+                                        "${pet.species}",
+                                        style: TextStyle(
+                                          fontFamily: 'Cafe24Ssurround-v2.0',
+                                          fontSize: 14,
+                                          color: Color(0xFFF66B40),
+                                        ),
+                                      ),
+                                      Text(
+                                        "${pet.size} / ${pet.age} / ${pet.gender}",
+                                        style: TextStyle(
+                                          fontFamily: 'Cafe24Ssurround-v2.0',
+                                          fontSize: 12,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
                                     ],
                                   ),
-
-
-
                                   GoToChatButton(pet)
                                 ],
                               )
@@ -74,11 +87,13 @@ class FriendItem extends StatelessWidget {
                         SizedBox(height: 20),
                         Text(
                           pet.introduction!,
-                          style: TextStyle(fontSize: 15),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Cafe24Ssurround-v2.0',
+                          ),
                         ),
                       ],
                     ),
-
                   ),
                 ),
               );
@@ -117,12 +132,17 @@ class FriendItem extends StatelessWidget {
                           pet.name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                            fontFamily: 'Cafe24Ssurround-v2.0',
+                            fontSize: 15,
                           ),
                         ), // TODO: name
                         Text(
                           pet.special_notes ?? "반가워요!",
-                          style: TextStyle(fontSize: 10),
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Cafe24Ssurround-v2.0',
+                            color: Colors.black54,
+                          ),
                           overflow: TextOverflow.ellipsis,
                         ), // TODO: special_note, default 문구
                       ],

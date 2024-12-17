@@ -38,28 +38,24 @@ class FriendsPage extends ConsumerWidget {
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-
-//                   child: Container(
-//                     height: 40,
-//                     width: 100,
-//                     color: Colors.transparent,
-//                     child: Row(
-//                       children: [
-//                         Icon(Icons.location_on),
-//                         Text(
-//                           '위치',
-//                           style: TextStyle(
-//                             fontFamily: 'Cafe24Ssurround-v2.0',
-//                             fontSize: 20,
-//                             letterSpacing: 1.5,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ), // TODO : 위치 표시 위젯 (사용자)
-
-                  child: Text('위치: ${user.address}'), // TODO : 위치 표시 위젯 (사용자)
-
+                  child: Container(
+                    height: 40,
+                    width: double.infinity,
+                    color: Colors.transparent,
+                    child: Row(
+                      children: [
+                        Icon(Icons.location_on),
+                        Text(
+                          '위치: ${user.address}',
+                          style: TextStyle(
+                            fontFamily: 'Cafe24Ssurround-v2.0',
+                            fontSize: 20,
+                            letterSpacing: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(height: 5),
                 Expanded(
