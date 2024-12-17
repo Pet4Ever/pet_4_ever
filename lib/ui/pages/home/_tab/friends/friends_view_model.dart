@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/data/repository/friends_repository.dart';
+import 'package:pet_4_ever/data/repository/user_repository.dart';
 
 /*
 - Firebase 데이터와 UI를 연결
@@ -13,19 +14,21 @@ import 'package:pet_4_ever/data/repository/friends_repository.dart';
 // 뷰모델 만들기
 
 class FriendViewModel extends Notifier<List<Pet>> {
+  final FriendsRepository _friendRepo;
+  FriendViewModel(this._friendRepo);
+
   @override
   List<Pet> build() {
-    _initialize();
+    //_initialize();
     return [];
   }
 
-  Future<void> _initialize() async {
-    await getAllPets();
-  }
+  // Future<void> _initialize() async {
+  //   await getAllPets();
+  // }
 
-  Future<void> getAllPets() async {
-    final friendRepo = FriendsRepository();
-    final friends = await friendRepo.getAll();
+  Future<void> getAllPets(String userAddress) async {
+    final friends = await _friendRepo.getFilteredPetsByAddress(userAddress);
     state = friends ?? [];
   }
 }
@@ -33,5 +36,6 @@ class FriendViewModel extends Notifier<List<Pet>> {
 // 뷰모델 관리자 만들기
 final friendViewModelProvider =
     NotifierProvider<FriendViewModel, List<Pet>>(() {
-  return FriendViewModel();
+  //final friendRepo = FriendsRepository();
+  return FriendViewModel(FriendsRepository());
 });
