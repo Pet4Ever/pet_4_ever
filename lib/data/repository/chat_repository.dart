@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/data/model/message.dart';
+import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/user_data.dart';
 
 class ChatRepository {
@@ -21,7 +22,9 @@ class ChatRepository {
           'id': doc.id,
           ...doc.data(),
         });
+        print(chat);
 
+        // 최근메세지 조회
         final messageRef = doc.reference
             .collection('message')
             .orderBy('createdAt', descending: true)
@@ -29,15 +32,27 @@ class ChatRepository {
         final messageSnapshot = await messageRef.get();
 
         if (messageSnapshot.docs.isNotEmpty) {
-          final recentMessage = messageSnapshot.docs.first.data();
           chat.recentMessage = Message.fromJson({
             'id': messageSnapshot.docs.first.id,
-            ...recentMessage,
+            ...messageSnapshot.docs.first.data(),
           });
         }
+
+        // pet 정보 조회
+        // final petRef = firestore.collection('pets').doc(chat.pet_id);
+        // final petSnapshot = await petRef.get();
+        // if (petSnapshot.exists) {
+        //   chat.pet = Pet.fromJson({
+        //     'id': petSnapshot.id,
+        //     ...petSnapshot.data()!,
+        //   });
+        // }
+        //   print("PET!! ${chat.pet}");
+
         return chat;
       }).toList());
 
+      print(chatList.length);
       return chatList;
     });
   }
