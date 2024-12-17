@@ -27,14 +27,22 @@ class ChatRepository {
             .collection('messages')
             .orderBy('createdAt', descending: true)
             .limit(1);
-        final messageSnapshot = await messageRef.get();
 
-        if (messageSnapshot.docs.isNotEmpty) {
-          chat.recentMessage = Message.fromJson({
-            'id': messageSnapshot.docs.first.id,
-            ...messageSnapshot.docs.first.data(),
-          });
-        }
+        final messageSnapshot = await messageRef.snapshots().map((event) {
+          if (event.docs.isNotEmpty) {
+            return Message.fromJson({
+              'id': event.docs.first.id,
+              ...event.docs.first.data(),
+            });
+          }
+          return null;
+        });
+
+        messageSnapshot.listen((message) {
+          if (message != null) {
+            chat.recentMessage = message;
+          }
+        });
 
         await _addPetAndOwner(chat, firestore);
 

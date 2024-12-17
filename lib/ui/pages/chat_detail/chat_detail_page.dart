@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/message_view_model.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/widgets/chat_detail_list_view.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/chat/chat_list_page.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
 import 'package:pet_4_ever/user_data.dart';
 
@@ -14,21 +15,32 @@ class ChatDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).pop();
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatListPage(),
+            ));
+        return false;
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(chat.owner?.name ?? ''),
-          centerTitle: true,
-        ),
-        body: Column(
-          children: [
-            chatTitleBar(),
-            ChatDetailListView(chat),
-            chatInputSendBar(),
-          ],
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(chat.owner?.name ?? ''),
+            centerTitle: true,
+          ),
+          body: Column(
+            children: [
+              chatTitleBar(),
+              ChatDetailListView(chat),
+              chatInputSendBar(),
+            ],
+          ),
         ),
       ),
     );
