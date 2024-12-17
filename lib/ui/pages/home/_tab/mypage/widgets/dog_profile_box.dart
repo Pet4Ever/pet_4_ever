@@ -138,11 +138,6 @@ class DogProfileBox extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       )),
-                  Text('특이사항: ${pet.special_notes}',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      )),
                 ],
               ),
             ),

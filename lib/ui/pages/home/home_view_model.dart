@@ -32,12 +32,21 @@ class HomeViewModel extends AutoDisposeNotifier<Homestate> {
     print("주소가 변경되었어요!!");
     final vworldRepo = VworldRepository();
     final result = await vworldRepo.findByLatLng(lat, lng);
-    final newAddress = result.first;
-    state = Homestate(
-      currentIndex: state.currentIndex,
-      address: newAddress,
-      latLng: LatLng(lat, lng),
-    );
+    // result가 비어 있으면 에러 발생
+    if (result.isNotEmpty) {
+      final newAddress = result.first;
+      state = Homestate(
+        currentIndex: state.currentIndex,
+        address: newAddress,
+        latLng: LatLng(lat, lng),
+      );
+    } else {
+      print('주소 결과가 비어있어요.');
+      state = Homestate(
+          currentIndex: state.currentIndex,
+          address: "주소를 찾을 수 없습니다.",
+          latLng: LatLng(lat, lng));
+    }
   }
 }
 

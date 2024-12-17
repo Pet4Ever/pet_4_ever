@@ -1,5 +1,6 @@
 class Pet {
   String id;
+  String owner_id;
   String name;
   String? imageUrl;
   String? species;
@@ -11,6 +12,7 @@ class Pet {
 
   Pet({
     required this.id,
+    required this.owner_id,
     required this.name,
     required this.imageUrl,
     required this.species,
@@ -24,6 +26,7 @@ class Pet {
   Pet.fromJson(Map<String, dynamic> map)
       : this(
           id: map['id'],
+          owner_id: map['owner_id'],
           name: map['name'],
           imageUrl: map['imageUrl'],
           species: map['species'],
@@ -37,6 +40,7 @@ class Pet {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'owner_id': owner_id,
       'name': name,
       'imageUrl': imageUrl,
       'species': species,
@@ -50,6 +54,7 @@ class Pet {
 
   Pet copyWith({
     String? id,
+    String? owner_id,
     String? name,
     String? imageUrl,
     String? species,
@@ -61,6 +66,7 @@ class Pet {
   }) {
     return Pet(
       id: id ?? this.id,
+      owner_id: owner_id ?? this.owner_id,
       name: name ?? this.name,
       imageUrl: imageUrl ?? this.imageUrl,
       species: species ?? this.species,

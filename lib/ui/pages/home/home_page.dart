@@ -7,7 +7,6 @@ import 'package:pet_4_ever/ui/pages/home/_tab/mypage/my_page.dart';
 import 'package:pet_4_ever/ui/pages/home/home_view_model.dart';
 import 'package:pet_4_ever/ui/pages/home/widgets/home_bottom_navigation_bar.dart';
 
-
 class HomePage extends ConsumerStatefulWidget {
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -31,13 +30,13 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(homeViewModel);
-    print("지금 주소는!! ${state.address}");
+    //print("지금 주소는!! ${state.address}");
     return Scaffold(
       body: IndexedStack(
         index: state.currentIndex,
         children: [
-          FriendsPage(),
           ChatListPage(),
+          FriendsPage(),
           Mypage(),
         ],
       ),

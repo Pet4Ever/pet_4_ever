@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/mypage/user_data_view_model.dart';
@@ -10,7 +11,8 @@ class UserProfileBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       try {
-        ref.read(userDataViewModel.notifier).getUserData(userData[0]!.uid);
+        User? currentUser = UserData().currentUser;
+        ref.read(userDataViewModel.notifier).getUserData(currentUser!.uid);
         final user = ref.watch(userDataViewModel);
 
         return Container(
@@ -37,7 +39,7 @@ class UserProfileBox extends StatelessWidget {
                       height: 8,
                     ),
                     Text(
-                      userData.isNotEmpty ? user.name : '사용자 아이디',
+                      currentUser.uid.isNotEmpty ? user.name : '사용자 아이디',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ],

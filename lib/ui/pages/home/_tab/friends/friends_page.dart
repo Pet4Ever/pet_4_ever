@@ -13,7 +13,7 @@ class FriendsPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: SvgPicture.asset("assets/images/mainLogo.svg"),
+          child: SvgPicture.asset(MAIN_LOGO),
         ),
       ),
       // TODO: consumer로 감싸서 구독
@@ -36,7 +36,7 @@ class FriendsPage extends ConsumerWidget {
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text('위치'),
+                  child: Text('위치'), // TODO : 위치 표시 위젯 (사용자)
                 ),
                 SizedBox(height: 5),
                 Expanded(
