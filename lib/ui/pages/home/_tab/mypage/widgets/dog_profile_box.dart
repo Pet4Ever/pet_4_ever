@@ -60,7 +60,9 @@ class DogProfileBox extends StatelessWidget {
             //반려견 상태 활성화/비활성화 버튼
             GestureDetector(
               onTap: () {
-                ref.read(myPageViewModel.notifier).toggleOnoff(pet.name!);
+                ref
+                    .read(myPageViewModel.notifier)
+                    .updateVisibility(pet.name!, pet.visibility!);
               },
               child: Align(
                 alignment: Alignment.topRight,
@@ -115,7 +117,9 @@ class DogProfileBox extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 4,),
+                  SizedBox(
+                    height: 4,
+                  ),
                   Text(
                     '이름: ${pet.name}',
                     style: TextStyle(

@@ -23,29 +23,31 @@ class MyPageViewModel extends Notifier<List<Pet>> {
   //   state = await mypageRepository.getById(userId);
   // }
 
-  //반려견 상태 활성화 버튼
-  // void toggleOnoff(String name) {
-  //   state = state.map(
-  //     (pet) {
-  //       if (pet.name == name) {
-  //         return pet.copyWith(visibility: !(pet.visibility ?? false));
-  //       }
-  //       return pet;
-  //     },
-  //   ).toList();
-  // }
-  
-  void toggleOnoff(String name) {
-  // 상태의 리스트를 직접 변경
-  for (var pet in state) {
-    if (pet.name == name) {
-      // currentState 값을 반전시켜 객체를 업데이트
-      pet.visibility = !(pet.visibility ?? false);
+  // 반려견 visibility 변경 버튼
+  Future<void> updateVisibility(String petName, bool visibility) async {
+    try {
+      final firestore = FirebaseFirestore.instance;
+      // 검색 필드와 값으로 문서 쿼리
+      final querySnapshot = await firestore
+          .collection('pet')
+          .where('name', isEqualTo: petName)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // 찾은 문서가 하나 이상 있을 경우, 첫 번째 문서 업데이트
+        final documentId = querySnapshot.docs.first.id;
+        await firestore.collection('pet').doc(documentId).update({
+          'visibility': !visibility,
+        });
+        print('Document updated successfully');
+      } else {
+        print('No documents found for the given search criteria.');
+      }
+    } catch (e) {
+      print('Error updating document: $e');
     }
   }
-  // 리스트의 변경 사항을 알리기 위해 동일한 객체를 다시 할당
-  state = [...state];
-}
+
   Future<void> getDogList() async {
     User? currentUser = UserData().currentUser;
     final myRepo = MyPageRepository();
@@ -57,8 +59,6 @@ class MyPageViewModel extends Notifier<List<Pet>> {
       streamSubscription.cancel();
     });
   }
-
-
 }
 
 final myPageViewModel = NotifierProvider<MyPageViewModel, List<Pet>>(
