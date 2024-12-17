@@ -1,0 +1,92 @@
+[
+  {
+    "name": "찰리",
+    "imageUrl": "https://picsum.photos/id/237/200/",
+    "species": "시고르자브종",
+    "gender": "boy",
+    "age": 3,
+    "size": "small",
+    "special_notes": "super cute."
+  },
+  {
+    "name": "루시",
+    "imageUrl": "https://picsum.photos/id/238/200/",
+    "species": "푸들",
+    "gender": "girl",
+    "age": 2,
+    "size": "medium",
+    "special_notes": "energetic and friendly."
+  },
+  {
+    "name": "동키",
+    "imageUrl": "https://picsum.photos/id/239/200/",
+    "species": "시츄",
+    "gender": "소녀",
+    "age": 2,
+    "size": "small",
+    "special_notes": "energetic and friendly."
+  },
+  {
+    "name": "양파",
+    "imageUrl": "https://picsum.photos/id/210/200/",
+    "species": "푸들",
+    "gender": "girl",
+    "age": 2,
+    "size": "medium",
+    "special_notes": "energetic and friendly."
+  },
+  {
+    "name": "감자",
+    "imageUrl": "https://picsum.photos/id/211/200/",
+    "species": "푸들",
+    "gender": "girl",
+    "age": 2,
+    "size": "medium",
+    "special_notes": "energetic and friendly."
+  },
+  {
+    "name": "토마토",
+    "imageUrl": "https://picsum.photos/id/212/200/",
+    "species": "푸들",
+    "gender": "girl",
+    "age": 2,
+    "size": "medium",
+    "special_notes": "energetic and friendly."
+  },
+  {
+    "name": "피망",
+    "imageUrl": "https://picsum.photos/id/213/200/",
+    "species": "푸들",
+    "gender": "girl",
+    "age": 2,
+    "size": "medium",
+    "special_notes": "energetic and friendly."
+  },
+  {
+    "name": "소금",
+    "imageUrl": "https://picsum.photos/id/214/200/",
+    "species": "푸들",
+    "gender": "girl",
+    "age": 2,
+    "size": "medium",
+    "special_notes": "energetic and friendly."
+  },
+  {
+    "name": "코카콜라",
+    "imageUrl": "https://picsum.photos/id/215/200/",
+    "species": "웰시코기",
+    "gender": "girl",
+    "age": 12,
+    "size": "medium",
+    "special_notes": "귀여운 뒷모습"
+  },
+  {
+    "name": "갑오징어",
+    "imageUrl": "https://picsum.photos/id/216/200/",
+    "species": "오징어",
+    "gender": "boy",
+    "age": 12,
+    "size": "medium",
+    "special_notes": "바다를 좋아하는 갱얼쥐"
+  }
+]

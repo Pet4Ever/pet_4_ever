@@ -1,3 +1,5 @@
+.env
+
 # Miscellaneous
 *.class
 *.log
@@ -5,9 +7,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -41,3 +45,30 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase 설정 파일
+GoogleService-Info.plist
+google-services.json
+
+# Flutter 빌드 디렉토리
+/build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tool/
+.packages
+
+# iOS 빌드 디렉토리
+ios/Pods/
+
+# Android 빌드 디렉토리
+android/.gradle/
+android/app/build/
+
+# IDE 설정 파일
+.idea/
+*.iml
+.vscode/
+
+# Firebase 에뮬레이터 파일
+.firebase/
+firebase-debug.log
