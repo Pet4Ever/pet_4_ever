@@ -16,11 +16,16 @@ class AddProfileBox extends StatelessWidget {
         }));
       },
       child: Container(
+        width: 50,
+        height: 50,
         alignment: Alignment.center,
         color: Colors.transparent,
         padding: EdgeInsets.all(10),
-        child: Icon(CupertinoIcons.plus_circled,
-            color: Theme.of(context).highlightColor),
+        child: Icon(
+          CupertinoIcons.plus_circled,
+          color: Theme.of(context).highlightColor,
+          size: 30,
+        ),
       ),
     );
   }

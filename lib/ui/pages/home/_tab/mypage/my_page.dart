@@ -23,7 +23,14 @@ class Mypage extends StatelessWidget {
         ref.read(myPageViewModel.notifier).getPetData(currentUser.uid);
         return Scaffold(
           appBar: AppBar(
-            title: Text('우리집'),
+            title: Text(
+              '우리집',
+              style: TextStyle(
+                fontSize: 25,
+                fontFamily: 'Cafe24Ssurround-v2.0',
+                letterSpacing: 1,
+              ),
+            ),
           ),
           body: Column(
             children: [
@@ -38,7 +45,14 @@ class Mypage extends StatelessWidget {
         // UID가 비어 있을 경우 로그인 메시지 반환
         return Scaffold(
           appBar: AppBar(
-            title: Text('우리집'),
+            title: Text(
+              '우리집',
+              style: TextStyle(
+                fontSize: 25,
+                fontFamily: 'Cafe24Ssurround-v2.0',
+                letterSpacing: 1,
+              ),
+            ),
           ),
           body: Center(
             child: Text(

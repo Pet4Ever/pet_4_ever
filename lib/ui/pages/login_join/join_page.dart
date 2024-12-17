@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/ui/pages/login_join/auth_view_model.dart';
@@ -46,7 +45,7 @@ class _JoinPageState extends ConsumerState<JoinPage> {
 
         // 회원가입 성공
         ScaffoldMessenger.of(context).showSnackBar(
-          dogSnackBar('회원가입이 성공!'),
+          dogSnackBar('회원가입 성공!'),
         );
 
         Navigator.push(
@@ -67,7 +66,7 @@ class _JoinPageState extends ConsumerState<JoinPage> {
       print('회원가입 실패');
       ScaffoldMessenger.of(context).showSnackBar(
         dogSnackBar(
-          '회원가입이 실패!',
+          '회원가입 실패!',
           backgroundColor: Color(0xFFFB6066),
         ),
       );

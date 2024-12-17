@@ -18,7 +18,7 @@ class UserProfileBox extends StatelessWidget {
         return Container(
           width: double.infinity,
           height: 200,
-          color: Color(0xffABE5E7),
+          color: Color(0xffABE5E7).withOpacity(0.7),
           child: Stack(
             children: [
               Align(

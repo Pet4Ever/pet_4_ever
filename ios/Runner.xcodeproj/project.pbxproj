@@ -317,6 +317,7 @@
 			showEnvVarsInLog = 0;
 		};
 		7356D9868F7A2BE4179EA2E8 /* [CP] Copy Pods Resources */ = {
+
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
