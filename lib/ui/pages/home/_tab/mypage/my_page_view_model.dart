@@ -2,7 +2,6 @@
 //뷰모델 만들기
 //뷰모델 관리자 만들기
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/data/repository/my_page_repository.dart';

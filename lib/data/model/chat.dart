@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:pet_4_ever/data/model/message.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 

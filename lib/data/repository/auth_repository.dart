@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pet_4_ever/data/model/user_model.dart';
 import 'package:pet_4_ever/user_data.dart';
 
 class AuthRepository {

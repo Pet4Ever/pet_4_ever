@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/data/model/message.dart';
-import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/user_data.dart';
 
 class ChatRepository {
