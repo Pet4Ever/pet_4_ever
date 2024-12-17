@@ -3,10 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/message_view_model.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/widgets/chat_detail_list_view.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
 import 'package:pet_4_ever/user_data.dart';
-
-final OWNER_NAME = "찡찡이 엄마";
-final SAMPLE_IMAGE_URL = "https://picsum.photos/200/300";
 
 class ChatDetailPage extends StatelessWidget {
   Chat chat;
@@ -22,7 +20,7 @@ class ChatDetailPage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(OWNER_NAME),
+          title: Text(chat.ownerName ?? ''),
           centerTitle: true,
         ),
         body: Column(
@@ -91,16 +89,12 @@ class ChatDetailPage extends StatelessWidget {
           SizedBox.square(
             dimension: 45,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: Image.network(
-                SAMPLE_IMAGE_URL,
-                fit: BoxFit.cover,
-              ),
-            ),
+                borderRadius: BorderRadius.circular(30),
+                child: PetImage(pet: chat.pet)),
           ),
           SizedBox(width: 10),
           Text(
-            chat.pet.name,
+            chat.pet?.name ?? '',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,

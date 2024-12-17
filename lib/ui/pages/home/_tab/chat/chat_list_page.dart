@@ -5,6 +5,12 @@ import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/chat_detail_page.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/chat/chat_view_model.dart';
 
+
+import 'package:pet_4_ever/ui/pages/chat_detail/widgets/chat_detail_list_view.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
+import 'package:pet_4_ever/ui/pages/home/home_view_model.dart';
+import 'package:pet_4_ever/ui/pages/map/map_page.dart';
+
 class ChatListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -72,12 +78,8 @@ class ChatListPage extends StatelessWidget {
             SizedBox.square(
               dimension: 55,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Image.network(
-                  SAMPLE_IMAGE_URL,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(30),
+                  child: PetImage(pet: item.pet!)),
             ),
             SizedBox(width: 10),
             Column(
@@ -86,13 +88,13 @@ class ChatListPage extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      item.pet_id,
+                      item.pet!.name,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     SizedBox(width: 5),
                     Text(
-                      "두암동 * 4일 전",
+                      "두암동 * ${item.recentMessage?.createdAtDiff ?? ''}",
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey,

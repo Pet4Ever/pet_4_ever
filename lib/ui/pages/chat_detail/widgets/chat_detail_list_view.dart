@@ -5,6 +5,7 @@ import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/data/model/message.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/chat_detail_page.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/message_view_model.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
 import 'package:pet_4_ever/user_data.dart';
 
 class ChatDetailListView extends StatelessWidget {
@@ -81,7 +82,7 @@ class ChatDetailListView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            "오후 12:24",
+            item.createdAtStr,
             style: TextStyle(
               color: Colors.black38,
               fontSize: 12,
@@ -115,7 +116,7 @@ class ChatDetailListView extends StatelessWidget {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "오후 12:24",
+                  item.createdAtStr,
                   style: TextStyle(
                     color: Colors.black38,
                     fontSize: 12,
@@ -132,10 +133,7 @@ class ChatDetailListView extends StatelessWidget {
   ClipRRect profileImage() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
-      child: Image.network(
-        SAMPLE_IMAGE_URL,
-        fit: BoxFit.cover,
-      ),
+      child: PetImage(pet: chat.pet),
     );
   }
 

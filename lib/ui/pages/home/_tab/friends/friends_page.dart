@@ -4,11 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_4_ever/constant.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/friends_view_model.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/friend_item.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/mypage/user_data_view_model.dart';
 
 class FriendsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final friends = ref.watch(friendViewModelProvider);
+    final user = ref.watch(userDataViewModel);
 
     return Scaffold(
       appBar: AppBar(
@@ -36,24 +38,28 @@ class FriendsPage extends ConsumerWidget {
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Container(
-                    height: 40,
-                    width: 100,
-                    color: Colors.transparent,
-                    child: Row(
-                      children: [
-                        Icon(Icons.location_on),
-                        Text(
-                          '위치',
-                          style: TextStyle(
-                            fontFamily: 'Cafe24Ssurround-v2.0',
-                            fontSize: 20,
-                            letterSpacing: 1.5,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ), // TODO : 위치 표시 위젯 (사용자)
+
+//                   child: Container(
+//                     height: 40,
+//                     width: 100,
+//                     color: Colors.transparent,
+//                     child: Row(
+//                       children: [
+//                         Icon(Icons.location_on),
+//                         Text(
+//                           '위치',
+//                           style: TextStyle(
+//                             fontFamily: 'Cafe24Ssurround-v2.0',
+//                             fontSize: 20,
+//                             letterSpacing: 1.5,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ), // TODO : 위치 표시 위젯 (사용자)
+
+                  child: Text('위치: ${user.address}'), // TODO : 위치 표시 위젯 (사용자)
+
                 ),
                 SizedBox(height: 5),
                 Expanded(
