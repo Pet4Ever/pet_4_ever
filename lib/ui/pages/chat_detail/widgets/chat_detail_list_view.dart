@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/constant.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/data/model/message.dart';
-import 'package:pet_4_ever/ui/pages/chat_detail/chat_detail_page.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/message_view_model.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
 import 'package:pet_4_ever/user_data.dart';
