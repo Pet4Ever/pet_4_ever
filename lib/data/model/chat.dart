@@ -7,6 +7,7 @@ class Chat {
   List<String> users;
   Message? recentMessage;
   Pet? pet;
+  String? ownerName;
 
   Chat({
     required this.id,
@@ -14,6 +15,7 @@ class Chat {
     required this.users,
     required this.recentMessage,
     required this.pet,
+    required this.ownerName,
   });
 
   Chat.fromJson(Map<String, dynamic> map)
@@ -25,6 +27,7 @@ class Chat {
               ? Message.fromJson(map['recentMessage'])
               : null,
           pet: map['pet'] != null ? Pet.fromJson(map['pet']) : null,
+          ownerName: map['ownerName'],
         );
 
   Map<String, dynamic> toJson() {

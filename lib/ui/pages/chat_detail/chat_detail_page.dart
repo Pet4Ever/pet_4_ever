@@ -6,9 +6,6 @@ import 'package:pet_4_ever/ui/pages/chat_detail/widgets/chat_detail_list_view.da
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
 import 'package:pet_4_ever/user_data.dart';
 
-final OWNER_NAME = "찡찡이 엄마";
-final SAMPLE_IMAGE_URL = "https://picsum.photos/200/300";
-
 class ChatDetailPage extends StatelessWidget {
   Chat chat;
   ChatDetailPage(this.chat);
@@ -23,7 +20,7 @@ class ChatDetailPage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(OWNER_NAME),
+          title: Text(chat.ownerName ?? ''),
           centerTitle: true,
         ),
         body: Column(

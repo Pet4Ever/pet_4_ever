@@ -37,16 +37,7 @@ class ChatRepository {
           });
         }
 
-        // pet 정보 조회
-        final petRef = firestore.collection('pet').doc(chat.pet_id);
-        final petSnapshot = await petRef.get();
-        if (petSnapshot.exists) {
-          chat.pet = Pet.fromJson({
-            'id': petSnapshot.id,
-            ...?petSnapshot.data(),
-          });
-        }
-        print("PET!! ${chat.pet}");
+        await _addPetAndOwnerName(chat, firestore);
 
         return chat;
       }).toList());
@@ -59,37 +50,26 @@ class ChatRepository {
   Future<Chat?> findChat(String pet_id) async {
     final currentUser = UserData().currentUser;
 
-    if (currentUser == null) {
-      throw Exception('User is not logged in');
-    }
-
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('chat');
     final query = collectionRef
         .where('pet_id', isEqualTo: pet_id)
-        .where('users', arrayContains: currentUser.uid)
-        .limit(1); // limit(1)을 추가하여 첫 번째 항목만 조회
+        .where('users', arrayContains: currentUser!.uid)
+        .limit(1);
 
     final result = await query.get();
     final docs = result.docs;
 
     if (docs.isNotEmpty) {
       final doc = docs.first;
-      
+
       final chat = Chat.fromJson({
         'id': doc.id,
         ...doc.data(),
       });
 
-      // pet 정보 조회
-      final petRef = firestore.collection('pet').doc(pet_id);
-      final petSnapshot = await petRef.get();
-      if (petSnapshot.exists) {
-        chat.pet = Pet.fromJson({
-          'id': petSnapshot.id,
-          ...?petSnapshot.data(),
-        });
-      }
+      await _addPetAndOwnerName(chat, firestore);
+
       return chat;
     } else {
       return null;
@@ -118,15 +98,9 @@ class ChatRepository {
           'id': docRef.id,
           ...data!,
         });
-        // pet 정보 조회
-        final petRef = firestore.collection('pet').doc(pet_id);
-        final petSnapshot = await petRef.get();
-        if (petSnapshot.exists) {
-          chat.pet = Pet.fromJson({
-            'id': petSnapshot.id,
-            ...?petSnapshot.data(),
-          });
-        }
+
+        await _addPetAndOwnerName(chat, firestore);
+
         return chat;
       }
 
@@ -137,5 +111,26 @@ class ChatRepository {
     }
   }
 
-  // DELETE
+  Future<void> _addPetAndOwnerName(
+    Chat chat,
+    FirebaseFirestore firestore,
+  ) async {
+    // pet 정보 조회
+    final petRef = firestore.collection('pet').doc(chat.pet_id);
+    final petSnapshot = await petRef.get();
+    if (petSnapshot.exists) {
+      chat.pet = Pet.fromJson({
+        'id': petSnapshot.id,
+        ...?petSnapshot.data(),
+      });
+    }
+
+    // ownerName 조회
+    final ownerRef = firestore.collection('user').doc(chat.pet!.owner_id);
+    final ownerSnapshot = await ownerRef.get();
+    if (ownerSnapshot.exists) {
+      final ownerData = ownerSnapshot.data();
+      chat.ownerName = ownerData?['name'];
+    }
+  }
 }
