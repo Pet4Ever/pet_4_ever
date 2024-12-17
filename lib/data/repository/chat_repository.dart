@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/data/model/message.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
+import 'package:pet_4_ever/data/model/user_model.dart';
 import 'package:pet_4_ever/user_data.dart';
 
 class ChatRepository {
@@ -35,7 +36,7 @@ class ChatRepository {
           });
         }
 
-        await _addPetAndOwnerName(chat, firestore);
+        await _addPetAndOwner(chat, firestore);
 
         return chat;
       }).toList());
@@ -66,7 +67,7 @@ class ChatRepository {
         ...doc.data(),
       });
 
-      await _addPetAndOwnerName(chat, firestore);
+      await _addPetAndOwner(chat, firestore);
 
       return chat;
     } else {
@@ -97,7 +98,7 @@ class ChatRepository {
           ...data!,
         });
 
-        await _addPetAndOwnerName(chat, firestore);
+        await _addPetAndOwner(chat, firestore);
 
         return chat;
       }
@@ -109,7 +110,7 @@ class ChatRepository {
     }
   }
 
-  Future<void> _addPetAndOwnerName(
+  Future<void> _addPetAndOwner(
     Chat chat,
     FirebaseFirestore firestore,
   ) async {
@@ -127,8 +128,10 @@ class ChatRepository {
     final ownerRef = firestore.collection('user').doc(chat.pet!.owner_id);
     final ownerSnapshot = await ownerRef.get();
     if (ownerSnapshot.exists) {
-      final ownerData = ownerSnapshot.data();
-      chat.ownerName = ownerData?['name'];
+      chat.owner = UserModel.fromJson({
+        'id': ownerSnapshot.id,
+        ...?ownerSnapshot.data(),
+      });
     }
   }
 }

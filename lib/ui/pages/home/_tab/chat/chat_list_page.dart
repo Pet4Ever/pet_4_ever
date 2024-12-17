@@ -101,7 +101,7 @@ class ChatListPage extends StatelessWidget {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      "두암동 * ${item.recentMessage?.createdAtDiff ?? ''}",
+                      "${item.owner?.splitedAddress} * ${item.recentMessage?.createdAtDiff ?? ''}",
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey,

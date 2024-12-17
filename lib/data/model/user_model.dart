@@ -41,4 +41,8 @@ class UserModel {
       'address': address,
     };
   }
+
+  String get splitedAddress {
+    return address.split(' ').last;
+  }
 }

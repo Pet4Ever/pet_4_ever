@@ -20,7 +20,7 @@ class ChatDetailPage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(chat.ownerName ?? ''),
+          title: Text(chat.owner?.name ?? ''),
           centerTitle: true,
         ),
         body: Column(
