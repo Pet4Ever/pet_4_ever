@@ -94,7 +94,7 @@ class FriendItem extends StatelessWidget {
                   height: 100, // 비율에 맞춰서 높이 설정
                 ),
                 // 텍스트
-                SizedBox(height: 3),
+                SizedBox(height: 2),
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 5),
