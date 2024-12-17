@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
 
-
 import 'package:pet_4_ever/ui/pages/home/_tab/chat/chat_list_page.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/go_to_chat_button.dart';
 
@@ -64,9 +63,7 @@ class FriendItem extends StatelessWidget {
                                           "${pet.size} / ${pet.age} / ${pet.gender}")
                                     ],
                                   ),
-
-
-
+                                  Spacer(),
                                   GoToChatButton(pet)
                                 ],
                               )
@@ -78,7 +75,6 @@ class FriendItem extends StatelessWidget {
                         ),
                       ],
                     ),
-
                   ),
                 ),
               );
