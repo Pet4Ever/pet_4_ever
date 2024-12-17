@@ -53,8 +53,9 @@ class FriendItem extends StatelessWidget {
                                   children: [
                                     Text(pet.name),
                                     //SizedBox(height: 10),
+                                    Text("${pet.species}"),
                                     Text(
-                                        "${pet.species} / ${pet.size} / ${pet.age} / ${pet.gender}")
+                                        "${pet.size} / ${pet.age} / ${pet.gender}"),
                                   ],
                                 ),
                                 Spacer(),
