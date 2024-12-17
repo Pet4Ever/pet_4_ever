@@ -20,7 +20,7 @@ class Mypage extends StatelessWidget {
       // 사용자 UID가 비어 있지 않을 경우
       if (currentUser!.uid.isNotEmpty == true) {
         // UID가 있다면 데이터를 가져오기
-        ref.read(myPageViewModel.notifier).getPetData(currentUser.uid);
+        ref.read(myPageViewModel.notifier).getDogList();
         return Scaffold(
           appBar: AppBar(
             title: Text(
