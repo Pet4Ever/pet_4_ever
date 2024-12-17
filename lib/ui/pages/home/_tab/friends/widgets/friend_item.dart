@@ -50,7 +50,12 @@ class FriendItem extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(pet.name),
+                                    Text(
+                                      pet.name,
+                                      style: TextStyle(
+                                        fontFamily: 'Cafe24Ssurround-v2.0',
+                                      ),
+                                    ),
                                     //SizedBox(height: 10),
                                     Text(
                                         "${pet.species} / ${pet.size} / ${pet.age} / ${pet.gender}")
