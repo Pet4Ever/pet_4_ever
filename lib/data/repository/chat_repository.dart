@@ -2,9 +2,8 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_4_ever/data/model/chat.dart';
+import 'package:pet_4_ever/data/model/message.dart';
 import 'package:pet_4_ever/user_data.dart';
-
-String userId = "샘플유저아이디";
 
 class ChatRepository {
   ChatRepository();
@@ -12,25 +11,44 @@ class ChatRepository {
   Stream<List<Chat>> chatListStream() {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('chat');
-    final stream = collectionRef.snapshots();
+    final stream = collectionRef
+        .where('users', arrayContains: UserData().currentUser!.uid)
+        .snapshots();
 
-    return stream.map((event) {
-      return event.docs.map((doc) {
-        return Chat.fromJson({
+    return stream.asyncMap((event) async {
+      final chatList = await Future.wait(event.docs.map((doc) async {
+        final chat = Chat.fromJson({
           'id': doc.id,
           ...doc.data(),
         });
-      }).toList();
+
+        final messageRef = doc.reference
+            .collection('message')
+            .orderBy('createdAt', descending: true)
+            .limit(1);
+        final messageSnapshot = await messageRef.get();
+
+        if (messageSnapshot.docs.isNotEmpty) {
+          final recentMessage = messageSnapshot.docs.first.data();
+          chat.recentMessage = Message.fromJson({
+            'id': messageSnapshot.docs.first.id,
+            ...recentMessage,
+          });
+        }
+        return chat;
+      }).toList());
+
+      return chatList;
     });
   }
 
-  Future<Chat?> findChat(String pet_id, String user_id) async {
+  Future<Chat?> findChat(String pet_id) async {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('chat');
     final query = collectionRef
         .where('pet_id', isEqualTo: pet_id)
-        .where('users', arrayContains: user_id);
-        // .where('users', arrayContains: UserData().currentUser!.uid);
+        // .where('users', arrayContains: user_id);
+        .where('users', arrayContains: UserData().currentUser!.uid);
 
     final result = await query.get();
     final docs = result.docs;
