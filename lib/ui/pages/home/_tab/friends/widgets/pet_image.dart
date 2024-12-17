@@ -11,7 +11,7 @@ class PetImage extends StatelessWidget {
     this.height,
   });
 
-  final Pet pet;
+  final Pet? pet;
   final BorderRadius? borderRadius;
   final double? width;
   final double? height;
@@ -26,8 +26,8 @@ class PetImage extends StatelessWidget {
         height: height ?? 100,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: (pet.imageUrl?.isNotEmpty ?? false)
-                  ? NetworkImage(pet.imageUrl!)
+              image: (pet?.imageUrl?.isNotEmpty ?? false)
+                  ? NetworkImage(pet!.imageUrl!)
                   : AssetImage(DEFAULT_PET),
               fit: BoxFit.cover),
         ),

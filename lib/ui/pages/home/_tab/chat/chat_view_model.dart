@@ -11,9 +11,6 @@ class ChatViewModel extends Notifier<List<Chat>> {
 
   Future<void> getChatList() async {
     final chatRepo = ChatRepository();
-    // final chats = await chatRepo.getChatList();
-    // print("chats :: $chats");
-    // state = chats ?? [];
     final stream = chatRepo.chatListStream();
     final streamSubscription = stream.listen((chats) {
       state = chats;
