@@ -14,6 +14,7 @@ class GoToChatButton extends StatelessWidget {
       onPressed: () async {
         final chatRepo = ChatRepository();
         final chat = await chatRepo.findChat(pet.id);
+        print('chat == $chat');
         if (chat != null) {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {

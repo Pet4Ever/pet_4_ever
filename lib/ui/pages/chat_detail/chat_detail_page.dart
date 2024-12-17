@@ -93,7 +93,7 @@ class ChatDetailPage extends StatelessWidget {
             dimension: 45,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
-                child: PetImage(pet: chat.pet!)),
+                child: PetImage(pet: chat.pet)),
           ),
           SizedBox(width: 10),
           Text(

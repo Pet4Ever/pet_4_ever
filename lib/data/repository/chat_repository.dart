@@ -57,26 +57,40 @@ class ChatRepository {
   }
 
   Future<Chat?> findChat(String pet_id) async {
+    final currentUser = UserData().currentUser;
+
+    if (currentUser == null) {
+      throw Exception('User is not logged in');
+    }
+
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('chat');
     final query = collectionRef
         .where('pet_id', isEqualTo: pet_id)
-        // .where('users', arrayContains: user_id);
-        .where('users', arrayContains: UserData().currentUser!.uid);
+        .where('users', arrayContains: currentUser.uid)
+        .limit(1); // limit(1)을 추가하여 첫 번째 항목만 조회
 
     final result = await query.get();
     final docs = result.docs;
 
-    if (docs.length > 0) {
-      return docs
-          .map((doc) {
-            return Chat.fromJson({
-              'id': doc.id,
-              ...doc.data(),
-            });
-          })
-          .toList()
-          .first;
+    if (docs.isNotEmpty) {
+      final doc = docs.first;
+      
+      final chat = Chat.fromJson({
+        'id': doc.id,
+        ...doc.data(),
+      });
+
+      // pet 정보 조회
+      final petRef = firestore.collection('pet').doc(pet_id);
+      final petSnapshot = await petRef.get();
+      if (petSnapshot.exists) {
+        chat.pet = Pet.fromJson({
+          'id': petSnapshot.id,
+          ...?petSnapshot.data(),
+        });
+      }
+      return chat;
     } else {
       return null;
     }
@@ -100,10 +114,20 @@ class ChatRepository {
       final docSnapshot = await docRef.get();
       if (docSnapshot.exists) {
         final data = docSnapshot.data();
-        return Chat.fromJson({
+        final chat = Chat.fromJson({
           'id': docRef.id,
           ...data!,
         });
+        // pet 정보 조회
+        final petRef = firestore.collection('pet').doc(pet_id);
+        final petSnapshot = await petRef.get();
+        if (petSnapshot.exists) {
+          chat.pet = Pet.fromJson({
+            'id': petSnapshot.id,
+            ...?petSnapshot.data(),
+          });
+        }
+        return chat;
       }
 
       return null;
