@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_4_ever/data/model/user_model.dart';
 
@@ -17,9 +16,8 @@ class UserRepository {
       };
       return UserModel.fromJson(map); // UserModel 객체 반환
     } else {
-      // 문서가 존재하지 않을 경우 기본값 반환
-      return UserModel(id: 'id', email: 'email', name: 'name');
+      // throw Exception('No user found with uid: $userId'); // 결과가 없을 때 예외 처리
+      return UserModel(id: 'id', email: 'email', name: 'name', address: '');
     }
   }
 }
-
