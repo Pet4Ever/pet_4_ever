@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet_4_ever/ui/pages/home/_tab/friends/friends_page.dart';
 import 'package:pet_4_ever/ui/pages/home/home_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/join_page.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/email_text_form_field.dart';
-import 'package:pet_4_ever/user_data.dart';
 import 'package:pet_4_ever/ui/widgets/logo_text.dart';
 import 'package:pet_4_ever/ui/pages/login_join/auth_view_model.dart';
 import 'package:pet_4_ever/ui/pages/login_join/widgets/pw_text_form_field.dart';
@@ -39,9 +37,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               pwController.text,
             );
 
-        // userData.insert(0, userCredential?.user);
-        userData.insert(0, ref.watch(authViewModelProvider));
-        print(userData);
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),

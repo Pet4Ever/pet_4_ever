@@ -28,8 +28,8 @@ class ChatRepository {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('chat');
     final query = collectionRef
-        .where('pet_id', isEqualTo: pet_id)
-        .where('users', arrayContains: loginedUser!.id);
+        .where('pet_id', isEqualTo: pet_id);
+        // .where('users', arrayContains: currentUser!.id);
 
     final result = await query.get();
     final docs = result.docs;

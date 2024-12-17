@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/mypage/my_page_view_model.dart';
@@ -9,10 +10,16 @@ class Mypage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
+
+      User? currentUser = UserData().currentUser;
+      if (currentUser != null) {
+        print("UID: ${currentUser.uid}");
+        print("Email: ${currentUser.email}");
+      }
       // 사용자 UID가 비어 있지 않을 경우
-      if (userData.isNotEmpty && userData[0]?.uid.isNotEmpty == true) {
+      if (currentUser!.uid.isNotEmpty == true) {
         // UID가 있다면 데이터를 가져오기
-        ref.read(myPageViewModel.notifier).getPetData(userData[0]!.uid);
+        ref.read(myPageViewModel.notifier).getPetData(currentUser.uid);
 
         return Scaffold(
           appBar: AppBar(

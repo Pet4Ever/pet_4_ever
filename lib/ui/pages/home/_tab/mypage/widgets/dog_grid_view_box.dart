@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/mypage/my_page_view_model.dart';
@@ -12,6 +13,7 @@ class DogGridViewBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       final state = ref.watch(myPageViewModel);
+      User? currentUser = UserData().currentUser;
       return Expanded(
         child: Container(
           color: Color(0xffFFEFC1),
@@ -24,7 +26,7 @@ class DogGridViewBox extends StatelessWidget {
                 mainAxisSpacing: 10),
             itemBuilder: (context, index) {
               //등록된 반려견 없을 때
-              if (state.isEmpty || userData.isEmpty) {
+              if (state.isEmpty || currentUser!.uid.isEmpty) {
                 return AddProfileBox();
               }
               //인덱스의 마지막 요소라면 프로필 등록 버튼 추가
