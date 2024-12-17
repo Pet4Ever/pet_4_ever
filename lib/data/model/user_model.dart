@@ -6,11 +6,13 @@ class UserModel {
   String id;
   String email;
   String name;
+  String address;
 
   UserModel({
     required this.id,
     required this.email,
     required this.name,
+    required this.address,
   });
 
   // Firebase User 객체를 UserModel로 바꿔줌
@@ -20,6 +22,7 @@ class UserModel {
       id: firebaseUser.uid,
       email: firebaseUser.email ?? '',
       name: firebaseUser.displayName ?? '',
+      address: '',
     );
   }
   UserModel.fromJson(Map<String, dynamic> map)
@@ -27,6 +30,7 @@ class UserModel {
           id: map['id'],
           email: map['email'],
           name: map['name'],
+          address: map['address'] ?? '',
         );
 
   Map<String, dynamic> toJson() {
@@ -34,6 +38,7 @@ class UserModel {
       'id': id,
       'email': email,
       'name': name,
+      'address': address,
     };
   }
 }

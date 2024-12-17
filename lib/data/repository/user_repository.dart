@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_4_ever/data/model/user_model.dart';
 
@@ -7,22 +6,18 @@ class UserRepository {
   Future<UserModel> getByUid(String userId) async {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('user');
-
-    final query = collectionRef.where('uid', isEqualTo: userId);
+    final query = collectionRef.doc(userId);
     final result = await query.get();
 
-    // 결과에서 첫 번째 문서 가져오기
-    if (result.docs.isNotEmpty) {
-      final doc = result.docs.first; // 첫 번째 문서 선택
+    if (result.exists) {
       final map = {
-        'id': doc.id,
-        ...doc.data(),
+        'id': result.id, // 문서 ID
+        ...result.data()!, // 문서 데이터 (null이 아님을 보장)
       };
       return UserModel.fromJson(map); // UserModel 객체 반환
     } else {
       // throw Exception('No user found with uid: $userId'); // 결과가 없을 때 예외 처리
-      return UserModel(id: 'id', email: 'email', name: 'name');
+      return UserModel(id: 'id', email: 'email', name: 'name', address: '');
     }
   }
 }
-
