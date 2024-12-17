@@ -28,5 +28,22 @@ class MyPageRepository {
     final petList = iterable.toList();
     return petList;
   }
+
+  Stream<List<Pet>> getPetStreamById(String userId) {
+    final firestore = FirebaseFirestore.instance;
+    final collectionRef = firestore.collection('pet');
+    final query = collectionRef.where('owner_id', isEqualTo: userId);
+    return query.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final map = {
+          'id': doc.id,
+          ...doc.data(),
+        };
+        return Pet.fromJson(map);
+      }).toList();
+    });
+  }
+
+
 }
 
