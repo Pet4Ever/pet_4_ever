@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:pet_4_ever/data/model/message.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 
@@ -8,7 +6,7 @@ class Chat {
   String pet_id;
   List<String> users;
   Message? recentMessage;
-  Pet pet;
+  Pet? pet;
 
   Chat({
     required this.id,
@@ -26,7 +24,7 @@ class Chat {
           recentMessage: map['recentMessage'] != null
               ? Message.fromJson(map['recentMessage'])
               : null,
-          pet: Pet.fromJson(map['pet']),
+          pet: map['pet'] != null ? Pet.fromJson(map['pet']) : null,
         );
 
   Map<String, dynamic> toJson() {

@@ -89,7 +89,7 @@ class ChatListPage extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      item.pet_id,
+                      item.pet!.name,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),

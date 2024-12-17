@@ -22,11 +22,10 @@ class ChatRepository {
           'id': doc.id,
           ...doc.data(),
         });
-        print(chat);
 
         // 최근메세지 조회
         final messageRef = doc.reference
-            .collection('message')
+            .collection('messages')
             .orderBy('createdAt', descending: true)
             .limit(1);
         final messageSnapshot = await messageRef.get();
@@ -39,20 +38,20 @@ class ChatRepository {
         }
 
         // pet 정보 조회
-        // final petRef = firestore.collection('pets').doc(chat.pet_id);
-        // final petSnapshot = await petRef.get();
-        // if (petSnapshot.exists) {
-        //   chat.pet = Pet.fromJson({
-        //     'id': petSnapshot.id,
-        //     ...petSnapshot.data()!,
-        //   });
-        // }
-        //   print("PET!! ${chat.pet}");
+        final petRef = firestore.collection('pet').doc(chat.pet_id);
+        final petSnapshot = await petRef.get();
+        if (petSnapshot.exists) {
+          chat.pet = Pet.fromJson({
+            'id': petSnapshot.id,
+            ...?petSnapshot.data(),
+          });
+        }
+        print("PET!! ${chat.pet}");
 
         return chat;
       }).toList());
 
-      print(chatList.length);
+      print("chatList.length == ${chatList.length}");
       return chatList;
     });
   }

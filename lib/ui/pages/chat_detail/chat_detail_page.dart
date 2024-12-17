@@ -100,7 +100,7 @@ class ChatDetailPage extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Text(
-            chat.pet.name,
+            chat.pet?.name ?? '',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/theme.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/chat/chat_list_page.dart';
+import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/go_to_chat_button.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
 
 class FriendItem extends StatelessWidget {
@@ -67,6 +68,7 @@ class FriendItem extends StatelessWidget {
                                 //       );
                                 //     },
                                 //     child: Text('발바닥')) // TODO: 채팅 넘어가는 버튼 추가
+                                GoToChatButton(pet)
                               ],
                             )
                           : Text('동물 친구들 데이터가 없습니다.'),
