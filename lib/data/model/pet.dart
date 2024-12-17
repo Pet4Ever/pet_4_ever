@@ -9,6 +9,7 @@ class Pet {
   String? size;
   String? special_notes;
   bool? visibility;
+  String? introduction;
 
   Pet({
     required this.id,
@@ -21,6 +22,7 @@ class Pet {
     required this.size,
     required this.special_notes,
     required this.visibility,
+    required this.introduction,
   });
 
   Pet.fromJson(Map<String, dynamic> map)
@@ -35,6 +37,7 @@ class Pet {
           size: map['size'],
           special_notes: map['special_notes'],
           visibility: map['visibility'] ?? false,
+          introduction: map['introduction'] ?? "",
         );
 
   Map<String, dynamic> toJson() {
@@ -48,6 +51,7 @@ class Pet {
       'age': age,
       'size': size,
       'special_notes': special_notes,
+      'introduction': introduction,
       'visibility': visibility,
     };
   }
@@ -62,6 +66,7 @@ class Pet {
     int? age,
     String? size,
     String? special_notes,
+    String? introduction,
     bool? visibility,
   }) {
     return Pet(
@@ -75,6 +80,7 @@ class Pet {
       size: size ?? this.size,
       special_notes: special_notes ?? this.special_notes,
       visibility: visibility ?? this.visibility,
+      introduction: introduction ?? this.introduction,
     );
   }
 }
