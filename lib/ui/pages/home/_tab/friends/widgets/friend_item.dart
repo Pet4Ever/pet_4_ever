@@ -54,20 +54,11 @@ class FriendItem extends StatelessWidget {
                                   children: [
                                     Text(pet.name),
                                     //SizedBox(height: 10),
+                                    Text("${pet.species}"),
                                     Text(
-                                        "${pet.species} / ${pet.size} / ${pet.age} / ${pet.gender}")
+                                        "${pet.size} / ${pet.age} / ${pet.gender}")
                                   ],
                                 ),
-                                // ElevatedButton(
-                                //     onPressed: () {
-                                //       Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //           builder: (context) => ChatListPage(),
-                                //         ),
-                                //       );
-                                //     },
-                                //     child: Text('발바닥')) // TODO: 채팅 넘어가는 버튼 추가
                                 GoToChatButton(pet)
                               ],
                             )
@@ -104,7 +95,7 @@ class FriendItem extends StatelessWidget {
                   height: 100, // 비율에 맞춰서 높이 설정
                 ),
                 // 텍스트
-                SizedBox(height: 3),
+                SizedBox(height: 2),
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 5),
