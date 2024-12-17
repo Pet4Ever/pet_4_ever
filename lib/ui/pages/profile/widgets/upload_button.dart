@@ -9,6 +9,8 @@ import 'package:pet_4_ever/ui/pages/home/_tab/mypage/my_page.dart';
 import 'package:pet_4_ever/user_data.dart';
 
 //TODO MVVM 적용
+//TODO 로딩 인디케이터 구현 (https://kimhyeongi.tistory.com/61)
+//https://baka9131.tistory.com/20
 ElevatedButton uploadButton(
   BuildContext context,
   GlobalKey<FormState> formKey1,
@@ -69,6 +71,17 @@ ElevatedButton uploadButton(
         showAlertDialog(context, errorMessages.join('\n'));
       } else {
         if (image != null) {
+          showDialog(
+            //로딩 인디게이터 시작
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          );
+
           try {
             final storageRef = FirebaseStorage.instance
                 .ref()
@@ -98,6 +111,8 @@ ElevatedButton uploadButton(
           } catch (e) {
             print('Error occurred: $e');
             showAlertDialog(context, '업로드 중 오류가 발생했습니다.');
+          } finally {
+            Navigator.of(context).pop(); //로딩 인디게이터 종료
           }
         }
       }

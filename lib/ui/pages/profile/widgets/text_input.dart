@@ -16,13 +16,13 @@ Form textInput({
           controller: controller,
           maxLines: maxLines,
           maxLength: maxLength,
+          textInputAction: TextInputAction.done, //
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
             hintText: '$hintText',
             hintStyle: TextStyle(color: Colors.grey, fontSize: 12),
             contentPadding: EdgeInsets.symmetric(
-              //글씨 위치 조정
               horizontal: 10,
               vertical: 15,
             ),

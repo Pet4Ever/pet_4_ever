@@ -82,104 +82,110 @@ class _UploadPetProfileState extends State<UploadPetProfile> {
                     },
                   ),
                   SizedBox(height: 20),
-                  Row(
-                    children: [
-                      SelectedButton(
-                        text: '견종',
-                        items: dogBreeds,
-                        onSelected: (value) {
-                          setState(() {
-                            species = value;
-                          });
-                        },
-                      ),
-                      SizedBox(width: 10),
-                      SelectedButton(
-                          text: '크기',
-                          items: ['소형', '중형', '대형'],
-                          onSelected: (value) {
-                            setState(() {
-                              size = value;
-                            });
-                          }),
-                      SizedBox(width: 10),
-                      SelectedButton(
-                          text: '성별',
-                          items: ['남', '여', '중성'],
-                          onSelected: (value) {
-                            setState(() {
-                              gender = value;
-                            });
-                          }),
-                      SizedBox(width: 10),
-                      SelectedButton(
-                          text: '나이',
-                          items: dogAge,
-                          onSelected: (value) {
-                            setState(() {
-                              age = int.parse(value);
-                            });
-                          }),
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    '이름',
-                    style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
-                  ),
-                  SizedBox(height: 4),
-                  textInput(
-                    height: '40',
-                    controller: nameController,
-                    hintText: '이름',
-                    maxLength: 10,
-                    maxLines: 1,
-                    formKey: formKey1,
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    '한마디',
-                    style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
-                  ),
-                  SizedBox(height: 4),
-                  textInput(
-                    height: '40',
-                    controller: oneLineController,
-                    hintText: '한마디',
-                    maxLength: 10,
-                    maxLines: 1,
-                    formKey: formKey2,
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    '소개',
-                    style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
-                  ),
-                  SizedBox(height: 4),
-                  textInput(
-                    height: '300',
-                    controller: introductionController,
-                    hintText: '소개',
-                    maxLength: 200,
-                    maxLines: 5,
-                    formKey: formKey3,
-                  ),
-                  SizedBox(height: 20),
-                  uploadButton(
-                    context,
-                    formKey1,
-                    formKey2,
-                    formKey3,
-                    image,
-                    species,
-                    size,
-                    gender,
-                    age,
-                    nameController.text,
-                    oneLineController.text,
-                    introductionController.text,
-                    clearFields,
-                    UserData().currentUser,
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        Row(
+                          children: [
+                            SelectedButton(
+                              text: '견종',
+                              items: dogBreeds,
+                              onSelected: (value) {
+                                setState(() {
+                                  species = value;
+                                });
+                              },
+                            ),
+                            SizedBox(width: 10),
+                            SelectedButton(
+                                text: '크기',
+                                items: ['소형', '중형', '대형'],
+                                onSelected: (value) {
+                                  setState(() {
+                                    size = value;
+                                  });
+                                }),
+                            SizedBox(width: 10),
+                            SelectedButton(
+                                text: '성별',
+                                items: ['남', '여', '중성'],
+                                onSelected: (value) {
+                                  setState(() {
+                                    gender = value;
+                                  });
+                                }),
+                            SizedBox(width: 10),
+                            SelectedButton(
+                                text: '나이',
+                                items: dogAge,
+                                onSelected: (value) {
+                                  setState(() {
+                                    age = int.parse(value);
+                                  });
+                                }),
+                          ],
+                        ),
+                        SizedBox(height: 15),
+                        Text(
+                          '이름',
+                          style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
+                        ),
+                        SizedBox(height: 4),
+                        textInput(
+                          height: '40',
+                          controller: nameController,
+                          hintText: '이름',
+                          maxLength: 10,
+                          maxLines: 1,
+                          formKey: formKey1,
+                        ),
+                        SizedBox(height: 15),
+                        Text(
+                          '한마디',
+                          style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
+                        ),
+                        SizedBox(height: 4),
+                        textInput(
+                          height: '40',
+                          controller: oneLineController,
+                          hintText: '한마디',
+                          maxLength: 10,
+                          maxLines: 1,
+                          formKey: formKey2,
+                        ),
+                        SizedBox(height: 15),
+                        Text(
+                          '소개',
+                          style: TextStyle(fontFamily: 'Cafe24Ssurround-v2.0'),
+                        ),
+                        SizedBox(height: 4),
+                        textInput(
+                          height: '200',
+                          controller: introductionController,
+                          hintText: '소개',
+                          maxLength: 200,
+                          maxLines: 5,
+                          formKey: formKey3,
+                        ),
+                        SizedBox(height: 20),
+                        uploadButton(
+                          context,
+                          formKey1,
+                          formKey2,
+                          formKey3,
+                          image,
+                          species,
+                          size,
+                          gender,
+                          age,
+                          nameController.text,
+                          oneLineController.text,
+                          introductionController.text,
+                          clearFields,
+                          UserData().currentUser,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
