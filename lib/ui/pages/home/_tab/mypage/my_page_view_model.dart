@@ -2,6 +2,7 @@
 //뷰모델 만들기
 //뷰모델 관리자 만들기
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/data/model/pet.dart';
 import 'package:pet_4_ever/data/repository/my_page_repository.dart';
@@ -9,10 +10,13 @@ import 'package:pet_4_ever/data/repository/my_page_repository.dart';
 class MyPageViewModel extends Notifier<List<Pet>> {
   @override
   List<Pet> build() {
+    // getDogList();
     return [];
   }
 
   final mypageRepository = MyPageRepository();
+
+  
 
   //사용자 정보로 반려견 데이터 가져오기
   Future<void> getPetData(String userId) async {
@@ -35,13 +39,22 @@ class MyPageViewModel extends Notifier<List<Pet>> {
 //   for (var pet in state) {
 //     if (pet.name == name) {
 //       // currentState 값을 반전시켜 객체를 업데이트
-//       pet.currentState = !(pet.currentState ?? false);
+//       pet.visibility = !(pet.visibility ?? false);
 //     }
 //   }
 //   // 리스트의 변경 사항을 알리기 위해 동일한 객체를 다시 할당
 //   state = [...state];
 // }
-
+  Future<void> getDogList(String userId) async {
+    final myRepo = MyPageRepository();
+    final stream = myRepo.getPetStreamById(userId);
+    final streamSubscription = stream.listen((pet) {
+      state = pet;
+    });
+    ref.onDispose(() {
+      streamSubscription.cancel();
+    });
+  }
 
 
 }

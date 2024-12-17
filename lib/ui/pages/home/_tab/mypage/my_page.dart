@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/mypage/my_page_view_model.dart';
+import 'package:pet_4_ever/ui/pages/home/home_view_model.dart';
 import 'package:pet_4_ever/user_data.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/mypage/widgets/dog_grid_view_box.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/mypage/widgets/user_profile_box.dart';
@@ -10,7 +11,7 @@ class Mypage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-
+      ref.watch(homeViewModel);
       User? currentUser = UserData().currentUser;
       if (currentUser != null) {
         print("UID: ${currentUser.uid}");
@@ -20,7 +21,6 @@ class Mypage extends StatelessWidget {
       if (currentUser!.uid.isNotEmpty == true) {
         // UID가 있다면 데이터를 가져오기
         ref.read(myPageViewModel.notifier).getPetData(currentUser.uid);
-
         return Scaffold(
           appBar: AppBar(
             title: Text('우리집'),
