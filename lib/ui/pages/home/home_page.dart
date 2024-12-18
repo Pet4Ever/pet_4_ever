@@ -21,6 +21,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   Future<void> _fetchAddress() async {
     final position = await GeolocatorHelper.getPositon();
+    print('=====');
+    print(position?.latitude);
+    print(position?.latitude);
     if (position != null) {
       final vm = ref.read(homeViewModel.notifier);
       vm.getAddress(position.latitude, position.longitude);
