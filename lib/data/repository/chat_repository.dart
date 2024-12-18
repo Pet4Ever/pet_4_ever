@@ -49,7 +49,6 @@ class ChatRepository {
         return chat;
       }).toList());
 
-      print("chatList.length == ${chatList.length}");
       return chatList;
     });
   }

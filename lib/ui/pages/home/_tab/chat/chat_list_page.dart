@@ -11,7 +11,7 @@ class ChatListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chats = ref.watch(chatViewModel);
-
+    print('chats == $chats');
     return Scaffold(
       appBar: AppBar(
         title: Text("채팅목록"),
@@ -25,7 +25,7 @@ class ChatListPage extends ConsumerWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: chatListView(chats),
+        child: chats.isEmpty ? emptyChatText() : chatListView(chats),
       ),
     );
   }
