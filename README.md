@@ -92,7 +92,7 @@ lib/
 │   │   │   ├── home_page.dart
 │   │   │   └── home_view_model.dart
 │   │   │
-│   │   ├── chat_detail/                               # 채팅 화면
+│   │   ├── chat_detail/                               
 │   │   │   │   ├── chat_detail_page.dart
 │   │   │   │   └── message_view_model.dart
 │   │   │   └── widgets/
