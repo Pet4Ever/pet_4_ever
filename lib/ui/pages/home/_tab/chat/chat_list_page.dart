@@ -5,14 +5,12 @@ import 'package:pet_4_ever/data/model/chat.dart';
 import 'package:pet_4_ever/ui/pages/chat_detail/chat_detail_page.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/chat/chat_view_model.dart';
 
-import 'package:pet_4_ever/ui/pages/chat_detail/widgets/chat_detail_list_view.dart';
 import 'package:pet_4_ever/ui/pages/home/_tab/friends/widgets/pet_image.dart';
-import 'package:pet_4_ever/ui/pages/home/home_view_model.dart';
-import 'package:pet_4_ever/ui/pages/map/map_page.dart';
 
-class ChatListPage extends StatelessWidget {
+class ChatListPage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final chats = ref.watch(chatViewModel);
     return Scaffold(
       appBar: AppBar(
         title: Text("채팅목록"),
@@ -26,12 +24,7 @@ class ChatListPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Consumer(
-          builder: (context, ref, child) {
-            final chats = ref.watch(chatViewModel);
-            return chats.length > 0 ? chatListView(chats) : emptyChatText();
-          },
-        ),
+        child: chatListView(chats),
       ),
     );
   }
@@ -45,19 +38,7 @@ class ChatListPage extends StatelessWidget {
       itemCount: chats.length,
       separatorBuilder: (context, index) => SizedBox(height: 12),
       itemBuilder: (context, index) {
-        // if (index == chats.length) {
-        //   return IconButton(
-        //     onPressed: () {
-        //       Navigator.push(context, MaterialPageRoute(
-        //         builder: (context) {
-        //           final latLng = ref.watch(homeViewModel).latLng;
-        //           return MapPage(latLng);
-        //         },
-        //       ));
-        //     },
-        //     icon: Icon(Icons.map),
-        //   );
-        // }
+
         var item = chats[index];
         return chatListItem(context, item);
       },

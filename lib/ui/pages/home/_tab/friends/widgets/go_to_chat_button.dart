@@ -36,7 +36,6 @@ class GoToChatButton extends StatelessWidget {
             ));
           }
         }
-        print("이동이 안되네요");
       },
       icon: SvgPicture.asset(
         PAW,
