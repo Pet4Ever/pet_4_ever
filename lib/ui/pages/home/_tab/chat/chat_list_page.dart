@@ -11,7 +11,7 @@ class ChatListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chats = ref.watch(chatViewModel);
-    print('chats == $chats');
+
     return Scaffold(
       appBar: AppBar(
         title: Text("채팅목록"),
@@ -39,6 +39,7 @@ class ChatListPage extends ConsumerWidget {
       itemCount: chats.length,
       separatorBuilder: (context, index) => SizedBox(height: 12),
       itemBuilder: (context, index) {
+
         var item = chats[index];
         return chatListItem(context, item);
       },
